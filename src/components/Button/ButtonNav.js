@@ -1,17 +1,17 @@
 import React from 'react'
-import './Button.css'
+import './ButtonNav.css'
 
 const STYLES = [
-    'btn--primary',
-    'btn--outline'
+    'buttonMe--primary',
+    'buttonMe--outline'
 ]
 
 const SIZES = [
-    'btn--medium',
-    'btn--large'
+    'buttonMe--medium',
+    'buttonMe--large'
 ]
 
-export const Button = ({
+export const ButtonNav = ({
     children,
     type,
     onClick,
@@ -22,7 +22,7 @@ export const Button = ({
     const checkButtonSize = SIZES.includes(buttonSize)?buttonSize : SIZES[0]
 
     return (
-        <button className={`btn ${checkButtonStyle} ${checkButtonSize}`}
+        <button className={`buttonMe ${checkButtonStyle} ${checkButtonSize}`}
         onClick={onClick} type={type}>
             {children}</button>
     )
