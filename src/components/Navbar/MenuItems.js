@@ -20,12 +20,12 @@ export const MenuItems = [
         cName:'nav_links'
     },
     {
-        title: 'Register',
+        title: 'Sign Up',
         url: '/SignUp',
         cName:'nav_button_mobile'
     },
     {
-        title: 'Login',
+        title: 'Sign In',
         url: '/signin',
         cName:'nav_button_mobile'
     },
