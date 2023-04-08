@@ -21,7 +21,8 @@ const SignIn = () =>
           </div>
           <div className="col-lg-8 px-5 pt-3">
           <h1 className="font-weight-bold py-3" id="header" >Sign In</h1>
-          <h1 id="header2">Join the hive and unlock smarter ways to roam with RoamHive!</h1>
+          <h1 id="header2">Welcome back to the smarter way to roam 
+          <br/>Login to RoamHive and continue your journey!</h1>
           <div className="container">
             <form>
                 <div className="form-row d-flex justify-content-center">
