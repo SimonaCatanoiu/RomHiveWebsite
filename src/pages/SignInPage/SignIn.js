@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import "./SignIn.css";
-
+import Popup from "../../components/Popup/Popup.js";
+import ForgotPasswordForm from "./ForgotPassword";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Link } from "react-router-dom";
 
 const SignIn = () => 
 {
+  const [openPopup,setOpenPopup] = useState(false)
   return <div className="pageBody">
     <br></br>
     <br></br>
@@ -26,20 +29,23 @@ const SignIn = () =>
                       <input type="email" placeholder="Email-Address" className="form-control my-4 p-2"/>
                       <input type="password" placeholder="Password" className="form-control my-4 p-2"/>
                       <button className="btn btn-dark my-3 mb-2">Login</button>
-                      <a href="#">Forgot password</a>
+                      <a href="#" onClick= {()=> setOpenPopup(true)} >Forgot password</a>
                       <p>Don't have an account?
-                      <a href="#">Register here</a>
+                      <Link to="/signUp"><a>Register here</a></Link>
                       </p>
                     </div>
                 </div>
-
             </form>
             </div>
           </div>
         </div>
       </div>
     </section>
-
+    <Popup openPopup={openPopup}
+    setOpenPopup={setOpenPopup}
+    title="Reset Password">
+    <ForgotPasswordForm setOpenPopup={setOpenPopup}></ForgotPasswordForm>
+    </Popup>
   </div>
 }
 

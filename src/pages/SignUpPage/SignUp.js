@@ -1,4 +1,5 @@
 import React from "react";
+import ForgotPasswordForm from "../SignInPage/ForgotPassword";
 
 const SignUp = () => 
 {
@@ -8,6 +9,7 @@ const SignUp = () =>
     <br></br>
     <br></br>
     <h1>SIGN UP PAGE</h1>
+    <ForgotPasswordForm></ForgotPasswordForm>
   </div>
 }
 
