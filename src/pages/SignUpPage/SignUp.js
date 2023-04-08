@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import "./SignUp.css";
 import Popup from "../../components/Popup/Popup.js";
 import "bootstrap/dist/css/bootstrap.min.css";
+import EmailIcon from '@mui/icons-material/Email';
+import EditNoteIcon from '@mui/icons-material/EditNote';
+import PhoneIcon from '@mui/icons-material/Phone';
+import LockIcon from '@mui/icons-material/Lock';
 
 const SignUp = () => 
 {
@@ -23,23 +27,43 @@ const SignUp = () =>
           <div className="container">
             <form>
                 <div className="form-row d-flex justify-content-center">
-                    <div className="col-lg-4 my-3">
-                      <input type="email" placeholder="Email-Address" className="form-control my-2 p-2"/>
-                      <input type="text" placeholder="First Name" className="form-control my-3 p-2"/>
-                      <input type="text" placeholder="Last Name" className="form-control my-3 p-2"/>
-                      <input type="text" placeholder="Mobile Phone" className="form-control my-3 p-2"/>
-                      <input type="password" placeholder="Password" className="form-control my-3 p-2"/>
-                      <input type="password" placeholder="Confirm Password" className="form-control my-3 p-2"/>
-                    </div>
-                    <div className="col-lg-3 mx-3">
+                    <div className="col-lg-6 my-3">
                       <div class="input-group mb-3">
-                        <span class="input-group-text"></span>
-                        <input type="text" class="form-control" placeholder="Search" aria-label="Search"/>
-                      </div>
+                          <span class="input-group-text"><EmailIcon></EmailIcon></span>
+                          <input type="text" class="form-control p-2" placeholder="Email-Address" aria-label="Email-Address"/>
+                        </div>
+
+                        <div class="input-group mb-3">
+                          <span class="input-group-text"><EditNoteIcon></EditNoteIcon></span>
+                          <input type="text" class="form-control p-2" placeholder="First Name" aria-label="First Name"/>
+                        </div>
+
+                        <div class="input-group mb-3">
+                          <span class="input-group-text"><EditNoteIcon></EditNoteIcon></span>
+                          <input type="text" class="form-control p-2" placeholder="Last Name" aria-label="Last Name"/>
+                        </div>
+
+                        <div class="input-group mb-3">
+                          <span class="input-group-text"><PhoneIcon></PhoneIcon></span>
+                          <input type="text" class="form-control p-2" placeholder="Mobile Phone" aria-label="Mobile Phone"/>
+                        </div>
+
+                        <div class="input-group mb-3">
+                          <span class="input-group-text"><LockIcon></LockIcon></span>
+                          <input type="password" class="form-control p-2" placeholder="Password" aria-label="Password"/>
+                        </div>
+          
+
+                        <div class="input-group mb-3">
+                          <span class="input-group-text"><LockIcon></LockIcon></span>
+                          <input type="password" class="form-control p-2" placeholder="Confirm Password" aria-label="Confirm Password"/>
+                        </div>
                     </div>
                 </div>
-                <div className="col-lg-4 offset-md-4">
-                      <button className="btn btn-dark my-1 mb-3">Register</button>
+                <div className="form-row d-flex justify-content-center">
+                  <div className="col-lg-4">
+                          <button className="btn btn-dark my-1 mb-3">Register</button>
+                  </div>
                 </div>
             </form>
             </div>
