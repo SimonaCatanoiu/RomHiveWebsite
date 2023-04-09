@@ -4,10 +4,10 @@ import "./Home.css"
 import SearchBar from "../../components/SearchBar/SearchBar";
 import ServiceList from "./Services/ServiceList";
 import Footer from "../../components/Footer/Footer.js"
+import Gallery from "../../components/Image-gallery/Gallery";
 
 const Home = () => 
 {
-
   return <>
     <br/>
     <br/>
@@ -96,6 +96,20 @@ const Home = () =>
         </Row>
       </Container>
     </section>
+
+    <section>
+      <Container>
+        <Row>
+          <Col lg='12'>
+            <h2 className="gallery__title">Visit our tour gallery</h2>
+          </Col>
+          <Col lg='12'>
+            <Gallery></Gallery>
+          </Col>
+        </Row>
+      </Container>
+    </section>
+
     <Footer></Footer>
 
     </>

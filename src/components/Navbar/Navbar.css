@@ -8,6 +8,7 @@
     position: fixed;
     width: 100%;
     box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+    z-index:1;
 }
 
 .navbar-logo{
@@ -47,6 +48,7 @@
     justify-content: end;
     margin-right: 1rem;
     margin-top: 1rem;
+    z-index:1;
 }
 
 .nav_links {
@@ -55,6 +57,7 @@
     padding: 0.5rem 0.8rem;
     font-size: large;
     cursor: pointer;
+    z-index:1;
 }
 
 .nav_links:hover{
@@ -67,6 +70,7 @@
 .material-symbols-outlined
 {
     color: #d2386c;
+    z-index:1;
 }
 
 .nav_button_mobile {
