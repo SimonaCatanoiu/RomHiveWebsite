@@ -7,6 +7,7 @@ import Footer from "../../components/Footer/Footer.js"
 
 const Home = () => 
 {
+
   return <>
     <br/>
     <br/>
@@ -75,15 +76,15 @@ const Home = () =>
             <div className="counter__wrapper d-flex align-items-center justify-content-center gap-5">
               <div className="counter__box">
                 <span>20k+</span>
-                <h6>Successful Trip</h6>
+                <h6>Successful Trips</h6>
               </div>
               <div className="counter__box">
                 <span>4k+</span>
-                <h6>Regular clients</h6>
+                <h6>Regular Clients</h6>
               </div>
               <div className="counter__box">
                 <span>3</span>
-                <h6>Years experience</h6>
+                <h6>Years Of Experience</h6>
               </div>
             </div>
           </Col>
@@ -96,6 +97,7 @@ const Home = () =>
       </Container>
     </section>
     <Footer></Footer>
+
     </>
 }
 

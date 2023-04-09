@@ -22,6 +22,14 @@
   color: #d2386c;
 }
 
+@media screen and (max-width: 800px)
+{
+  .mdb-footer p{
+    text-align: center;
+  }
+}
+
+
 .mdb-footer p:hover{
   color:#6668f4;
 }
