@@ -17,7 +17,7 @@ const SignUp = () =>
 
     <section className = "Form my-2 mx-5 py-2">
       <div className="container">
-        <div className="row no-gutters" id="SignUpRow">
+        <div className="row no-gutters" id="my_row">
           <div className="col-lg-4">
             <img src="../../images/register.jpg" className="img-fluid" id="img_signIn" alt=""></img>
           </div>

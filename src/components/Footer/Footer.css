@@ -1,0 +1,27 @@
+.mdb-footer {
+    background-color: rgb(255,255,240);
+  }
+
+.footer_img{
+  width: 20rem;
+
+}
+
+.mdb-footer a{
+  padding: 0;
+  margin: 0;
+}
+
+.mdb-footer a:hover{
+  text-decoration: none;
+}
+
+.mdb-footer p{
+  padding: 4px;
+  margin: 0;
+  color: #d2386c;
+}
+
+.mdb-footer p:hover{
+  color:#6668f4;
+}

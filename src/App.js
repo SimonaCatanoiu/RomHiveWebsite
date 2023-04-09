@@ -10,7 +10,8 @@ import SignUp from './pages//SignUpPage/SignUp.js';
 
 import {
   Routes,
-  Route
+  Route,
+  Navigate
 } from "react-router-dom"
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
     <div className="App">
       <Navbar></Navbar>
       <Routes>
+        <Route path="/" element={<Navigate to="/home"/>} />
         <Route path='/home' element={<Home/>}></Route>
         <Route path='/offers' element={<Offers/>}></Route>
         <Route path='/reviews' element={<Reviews/>}></Route>

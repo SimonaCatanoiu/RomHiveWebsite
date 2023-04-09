@@ -1,0 +1,31 @@
+.service__item{
+    padding: 1rem;
+    border-bottom: 1px solid #b2553d86;
+    border-right: 1px solid #b2553d86;
+    border-radius: 0.5rem;
+}
+
+.service__item h5
+{
+    color:rgb(107,21,26);
+    font-size: 1.5rem;
+}
+
+.service__item p{
+    font-size: .9rem;
+}
+
+.service__icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    background: rgb(107,21,26);
+    color: white;
+    padding:0.5rem;
+    margin-bottom: 1rem;
+    line-height: 50px;
+}
+
