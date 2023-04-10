@@ -1,0 +1,99 @@
+:root {
+    --heading-color: black;
+    --secondary-color: rgb(107,21,26);
+    --third-color: #d2386c;
+}
+
+.offer__img img{
+    width: 100%;
+    border-radius: 5px 5px 0 0 ;
+}
+
+.card{
+    border:none !important;
+    box-shadow: rgba(0,0,0,0.2) 0px 18px 50px -10px;
+}
+
+.offer__img{
+    position: relative;
+}
+
+.offer__img span{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: max-content;
+    height: max-content;
+    z-index: 10;
+    background: var(--third-color);
+    color:white;
+    padding: 0.3rem 0.5rem;
+    border-radius: 3px 0 0 0;
+}
+
+.card__top span .icon_card{
+    color:var(--third-color);
+}
+
+.offer__rating{
+    font-size:.9rem;
+    color: gray;
+}
+
+.offer__location{
+    color:rgb(68, 67, 67);
+    font-weight: 500;
+    font-size:.9rem;
+}
+
+.offer__rating .icon_card{
+    font-size: 1rem;
+}
+
+.offer__title{
+    margin-top: 1rem;
+    font-size: 1.7rem;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.offer__title a{
+    text-decoration: none;
+    color: var(--secondary-color);
+    transition: .3s;
+}
+
+.offer__title a:hover{
+    color:var(--third-color);
+}
+
+.card__bottom h5{
+    color: var(--third-color);
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.card__bottom h5 span{
+    font-weight: 500;
+    color:rgb(68, 67, 67);
+    font-size: 0.8rem;
+}
+
+.booking__btn{
+    background: var(--third-color) !important;
+    cursor: pointer;
+    width: 50%;
+    padding: 0.2rem 0.5rem !important;
+}
+
+.booking__btn a{
+   text-decoration: none;
+   font-size: .9rem;
+   color:white; 
+}
+
+.booking__btn a:hover{
+    text-decoration: none;
+    font-size: .9rem;
+    color:var(--secondary-color);
+ }

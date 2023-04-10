@@ -26,12 +26,18 @@ export default function ForgotPasswordForm(props)
                 <br/><br/>
                 Like you, we had no idea who to trust for travel advice.
                 <br/><br/>
-                That’s why we made RoamHive, a travel site written by real experts, not anonymous reviewers. Our writers are locals with hometown pride, parents who are road trip heroes, cruise junkies who know every ship at sea, and virtually everyone else in-between.
+                That’s why we made RoamHive, a travel site created by real experts. Our guides are locals with hometown pride, parents who are road trip heroes, cruise junkies who know every ship at sea, and virtually everyone else in-between.
                 <br/><br/>
-                We have more than 50 writers—from lifetime locals to licensed tour guides—sharing useful travel advice and inspiration from destinations around the world. RoamHive has been honored by multiple awards since its inception, including the Eppy Awards, the W3 Awards, and the Communicator Awards.
+                We believe that the world is meant to be explored and that travel is an essential part of life. We are a team of passionate travel experts dedicated to curating bespoke travel experiences for our clients.
                 <br/><br/>
-                You’ll find that our 20-year-strong library of more than 30,000 articles will make you a savvy traveler—showing you how to book a hotel the whole family will love, where to find the best bagel in New York City, and how to skip the lines at theme parks. We give you the confidence to spend your vacation actually vacationing, not fumbling with a guidebook or second-guessing yourself.
+                Our travel specialists have extensive knowledge of destinations around the world, and we pride ourselves on offering insider access to the most incredible experiences. Whether you're looking to immerse yourself in local cultures, discover hidden gems, or simply relax and recharge, we've got you covered.
                 <br/><br/>
+                We are committed to sustainability and responsible travel, and we work closely with our partners to ensure that our itineraries have a positive impact on the environment and the communities we visit.
+                <br/><br/>  
+                Because travel should be stress-free and seamless, we have taken care of all the details for your, from accommodations to local transportation and activities. Our goal is to provide unparalleled customer service, ensuring that your travel experience is smooth, enjoyable, and unforgettable.
+                <br/><br/>  
+                So whether you're looking for a romantic getaway, a family vacation, or an adventure of a lifetime, let us help you create the perfect itinerary that meets all your travel dreams. Contact us today to start planning your next adventure!                
+                <br/><br/>  
             </Typography>
             <button onClick={handleClose} type="button" class="btn btn-dark">Cancel</button>             
         </Stack>
