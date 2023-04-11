@@ -1,5 +1,7 @@
 import React from "react";
 import "./Admin.css"
+import Sidebar from "../../components/Sidebar/Sidebar";
+import MainPage from "./AdminPages/MainPage/MainPage";
 
 const Admin = () => 
 {
@@ -7,8 +9,10 @@ const Admin = () =>
     <br></br>
     <br></br>
     <br></br>
-    <br></br>
-    <h1>ADMIN PAGE</h1>
+    <div className="container_admin">
+      <Sidebar/>
+      <MainPage/>
+    </div>
   </div>
 }
 

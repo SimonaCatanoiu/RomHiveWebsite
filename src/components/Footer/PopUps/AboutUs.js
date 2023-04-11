@@ -1,15 +1,10 @@
-import React, {useState,useEffect} from "react";
+import React  from "react";
 import "./AboutUs.css"
-import { Grid, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { Stack } from "react-bootstrap";
 
-const initialFormValues = {
-    username: "",
-    newPassword: "",
-    CheckPassword: ""
-}
 
-export default function ForgotPasswordForm(props)
+export default function AboutUs(props)
 {
     const { setOpenPopup } = props;
 

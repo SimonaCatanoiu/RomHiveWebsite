@@ -1,17 +1,10 @@
-import React, {useState,useEffect} from "react";
+import React from "react";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import MailIcon from '@mui/icons-material/Mail';
 import "./Contact.css"
 
-const initialFormValues = {
-    username: "",
-    newPassword: "",
-    CheckPassword: ""
-}
-
-
-export default function ForgotPasswordForm(props)
+export default function Contact(props)
 {
     const { setOpenPopup } = props;
 

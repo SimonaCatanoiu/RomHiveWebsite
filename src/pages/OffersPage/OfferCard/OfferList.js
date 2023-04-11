@@ -3,7 +3,7 @@ import OfferCard from './OfferCard'
 import { Col } from 'react-bootstrap'
 import {offerData} from "./OffersData"
 
-const FeaturedTourList = () => {
+const OfferList = () => {
 
     return <>
        {
@@ -16,4 +16,4 @@ const FeaturedTourList = () => {
     </>
 }
 
-export default FeaturedTourList
+export default OfferList
