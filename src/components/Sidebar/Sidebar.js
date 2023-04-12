@@ -1,8 +1,11 @@
 import React from 'react'
 import "./Sidebar.css"
 import LineStyleIcon from '@mui/icons-material/LineStyle';
-import TimelineIcon from '@mui/icons-material/Timeline';
-import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import HolidayVillageIcon from '@mui/icons-material/HolidayVillage';
+import PaymentsIcon from '@mui/icons-material/Payments';
+import SettingsIcon from '@mui/icons-material/Settings';
+import { Link } from 'react-router-dom';
 
 export default function Sidebar() {
   return (
@@ -10,44 +13,43 @@ export default function Sidebar() {
         <div className='sidebarWrapper'>
             <div className="sidebarMenu">
                 <h3 className='sidebarTitle'>
-                    Dashboard
-                </h3>
-                <ul className="sidebarList">
-                    <li className="sidebarListItem active">
-                        <LineStyleIcon className="sidebarIcon"/> 
-                        Home
-                    </li>
-                    <li className="sidebarListItem">
-                        <TimelineIcon className="sidebarIcon"/> 
-                        Analytics
-                    </li>
-                    <li className="sidebarListItem">
-                        <TrendingUpIcon className="sidebarIcon"/> 
-                        Sales
-                    </li>
-                </ul>
-            </div>
-
-            <div className="sidebarMenu">
-                <h3 className='sidebarTitle'>
                     Quick Menu
                 </h3>
                 <ul className="sidebarList">
+                <Link to="/adminpage" style={{textDecoration: 'none'}}>
                     <li className="sidebarListItem">
                         <LineStyleIcon className="sidebarIcon"/> 
+                        Home
+                    </li>
+                </Link>
+                <Link to="/adminPage/Users" style={{textDecoration: 'none'}}>
+                    <li className="sidebarListItem">
+                        <PeopleAltIcon className="sidebarIcon"/> 
                         Users
                     </li>
+                </Link>
+                <Link to="/adminPage/Trips" style={{textDecoration: 'none'}}>
                     <li className="sidebarListItem">
-                        <TimelineIcon className="sidebarIcon"/> 
-                        OFfers
+                        <HolidayVillageIcon className="sidebarIcon"/> 
+                        Trips
                     </li>
+                </Link>
+                <Link to="/adminPage/Transactions" style={{textDecoration: 'none'}}>
                     <li className="sidebarListItem">
-                        <TrendingUpIcon className="sidebarIcon"/> 
+                        <PaymentsIcon className="sidebarIcon"/> 
                         Transactions
                     </li>
+                </Link>
+                <Link to="/adminPage/Settings" style={{textDecoration: 'none'}}>
+                    <li className="sidebarListItem">
+                        <SettingsIcon className="sidebarIcon"/> 
+                        Settings
+                    </li>
+                </Link>
                 </ul>
             </div>
-            
+
+
         </div>
     </div>
   )

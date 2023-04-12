@@ -8,7 +8,12 @@ import Admin from './pages/AdminPage/Admin.js';
 import OfferDetails from './pages/OffersPage/CardDetailsPage/OfferDetails.js';
 import SignIn from './pages//SignInPage/SignIn.js';
 import SignUp from './pages//SignUpPage/SignUp.js';
-import OrderCompleted from './pages/OffersPage/OrderCompleted/OrderCompleted';
+import OrderCompleted from './pages/OffersPage/OrderCompleted/OrderCompleted.js';
+import Users from './pages/AdminPage/Users/Users.js';
+import NewUser from './pages/AdminPage/Users/NewUser.js';
+import Trips from './pages/AdminPage/TripsPage/TripsPage.js'
+import Transactions from './pages/AdminPage/TransactionsPage/TransactionPage.js'
+import Settings from './pages/AdminPage/SettingsPage/SettingsPage.js'
 
 import {
   Routes,
@@ -30,6 +35,11 @@ function App() {
         <Route path='/SignIn' element={<SignIn/>}></Route>
         <Route path='/SignUp' element={<SignUp/>}></Route>
         <Route path='/OrderCompleted' element={<OrderCompleted/>}></Route>
+        <Route path='/adminPage/Users' element={<Users/>}></Route>
+        <Route path='/adminPage/Users/:id' element={<NewUser/>}></Route>
+        <Route path='/adminPage/Trips' element={<Trips/>}></Route>
+        <Route path='/adminPage/Transactions' element={<Transactions/>}></Route>
+        <Route path='/adminPage/Settings' element={<Settings/>}></Route>
       </Routes>
     </div>
   );

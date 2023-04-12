@@ -11,12 +11,13 @@
 {
     .sidebar{
     height: calc(47rem - 72px);
+    
 }
 }
 
 .sidebarWrapper{
     padding: 20px;
-    color:#555;
+    color:#555 !important;
 }
 
 .sidebarMenu{
@@ -40,14 +41,17 @@
     align-items: center;
     border-radius: 10px;
     margin-top: 2px;
+    color:#555 !important;
 }
 
 .sidebarListItem:hover{
     background-color: rgba(244,141,209,0.5);
+    color:black !important;
 }
 
 .sidebarListItem.active{
     background-color: rgba(244,141,209,0.5);
+    color:black !important;
 }
 
 .sidebarIcon{

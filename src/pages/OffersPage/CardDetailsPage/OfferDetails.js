@@ -63,20 +63,32 @@ const OfferDetails = () => {
                                         <LocationOnIcon className='icon_card_details2' />{address}
                                     </span>
                                 </div>
-                                <div className="offer__extra-details">
-                                    <span>
-                                        <LocationCityIcon className='icon_card_details2' />{city}
-                                    </span>
-                                    <span>
-                                        <MonetizationOnIcon className='icon_card_details2' />${price} / per person
-                                    </span>
-                                    <span>
-                                        <TimeToLeaveIcon className='icon_card_details2' />{distance} km
-                                    </span>
-                                    <span>
-                                        <GroupIcon className='icon_card_details2' />{maxGroupSize} people
-                                    </span>
-                                </div>
+                                    <div className="offer__extra-details">
+                                    <Container>
+                                    <Row>
+                                    <Col lg="3">
+                                        <span>
+                                            <LocationCityIcon className='icon_card_details2' />{city}
+                                        </span>
+                                    </Col>
+                                    <Col lg="3">
+                                        <span>
+                                            <MonetizationOnIcon className='icon_card_details2' />${price} / per person
+                                        </span>
+                                    </Col>
+                                    <Col lg="3">
+                                        <span>
+                                            <TimeToLeaveIcon className='icon_card_details2' />{distance} km
+                                        </span>
+                                    </Col>
+                                    <Col lg="3">
+                                        <span>
+                                            <GroupIcon className='icon_card_details2' />{maxGroupSize} people
+                                        </span>
+                                    </Col>
+                                    </Row>
+                                    </Container>
+                                    </div>
                                 <h5>Description</h5>
                                 <p>{desc}</p>
                             </div>

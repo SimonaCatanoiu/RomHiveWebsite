@@ -1,7 +1,7 @@
 import React from "react";
 import "./Admin.css"
 import Sidebar from "../../components/Sidebar/Sidebar";
-import MainPage from "./AdminPages/MainPage/MainPage";
+import MainPage from "./MainPage/MainPage";
 
 const Admin = () => 
 {
