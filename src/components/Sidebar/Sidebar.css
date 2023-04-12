@@ -1,60 +1,69 @@
-.sidebar{
-    flex:0.7;
-    height: calc(100vh - 72px);
-    background-color: rgb(255,255,240);
-    position: sticky;
-    top: 50px;
+.container_slide{
+    display:flex;
+    margin:0;
+    padding:0;
+    background: rgb(255,255,240);
     box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
 }
 
-@media screen and (max-width: 700px)
-{
-    .sidebar{
-    height: calc(47rem - 72px);
-    
-}
-}
-
-.sidebarWrapper{
-    padding: 20px;
-    color:#555 !important;
+.sidebar_slide{
+    color: #555;
+    height: 90vh;
+    width: 200px;
+    transition: all 0.5s;
+    margin:0;
+    padding:0;
 }
 
-.sidebarMenu{
-    margin-bottom: 10px;
-}
-
-.sidebarTitle {
-    font-size:13px;
-    color:rgb(197,194,194);
-}
-
-.sidebarList{
-    list-style: none;
-    padding:5px;
-}
-
-.sidebarListItem{
-    padding:5px;
-    cursor: pointer;
+.top_section_slide{
     display: flex;
-    align-items: center;
+    padding:20px 15px;
+    margin:0;
+}
+.logo_slide{
+    font-size: 30px;
+    margin:0;
+    padding:0;
+}
+.bars_slide{
+    font-size: 25px;
+    margin-left: 50px;
+    margin:0;
+    padding:0;
+}
+
+@media screen and (max-width: 600px)
+{
+    .bars_slide
+    {
+        display: none;
+    }
+}
+
+.link_slide{
+    display: flex;
+    color: #555;
+    padding: 10px 15px;
+    gap: 15px;
+    transition: all 0.5s;
+    margin:0;
+    text-decoration: none !important;
     border-radius: 10px;
-    margin-top: 2px;
-    color:#555 !important;
 }
-
-.sidebarListItem:hover{
-    background-color: rgba(244,141,209,0.5);
-    color:black !important;
+.link_slide:hover{
+    background:rgba(244,141,209,0.5);
+    color: #000;
+    transition: all 0.5s;
+    margin:0;
 }
-
-.sidebarListItem.active{
-    background-color: rgba(244,141,209,0.5);
-    color:black !important;
+.active_slide{
+    background: rgba(244,141,209,0.5);
+    color: #000;
+    margin:0;
+    padding:0;
 }
-
-.sidebarIcon{
-    margin-right:10px;
-    font-size:20px !important;
+.icon_slide, .link_text_slide{
+    font-size: 20px;
+    margin:0;
+    padding:0;
 }

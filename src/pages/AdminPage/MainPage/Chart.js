@@ -13,14 +13,13 @@ export default function Chart({title,data,dataKey,grid}) {
         <h3 className='chartTitle'>{title}</h3>
         <ResponsiveContainer width="100%" aspect={4/1}>
           <LineChart data={data}>
-            <XAxis dataKey="month" stroke="#5550bd"/>
+            <XAxis dataKey="month" stroke="#d2386c"/>
             <YAxis/>
-            <Line type="monotone" dataKey={dataKey} stroke="#5550bd"/>
+            <Line type="monotone" dataKey={dataKey} stroke="#d2386c"/>
             <Tooltip/>
             {grid && <CartesianGrid stroke="#e0dfdf" strokeDasharray="5 5"/>}
           </LineChart>
         </ResponsiveContainer>
-
       </div>
     </div>
 

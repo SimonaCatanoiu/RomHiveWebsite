@@ -7,6 +7,7 @@ import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import { Link } from 'react-router-dom';
 
 export default function NewUser() {
   return (
@@ -18,8 +19,18 @@ export default function NewUser() {
       <Sidebar/>
       <div className='NewUserPage'>
         <div className="userTitleContainer">
-          <h1 className='userTitle'>Edit User</h1>
-          <button className="userAddButton">Create</button>
+          <Container>
+            <Row>
+              <Col lg='10'>
+                <h1 className='userTitle'>Edit User</h1>
+              </Col>
+              <Col lg='2' className='d-flex justify-content-end'>
+                <Link style={{textDecoration: 'none'}} to="/adminPage/AddUser">
+                  <button className="userAddButton">Create</button>
+                </Link>
+              </Col>
+            </Row>
+          </Container>
         </div>
         <div className='userContainer'>
         <Container>
@@ -70,13 +81,49 @@ export default function NewUser() {
             <span className="userUpdateTitle">Edit</span>
             <form className="userUpdateForm">
               <div className="userUpdateLeft">
+                
                 <div className="userUpdateItem">
                   <label>Username</label>
                   <input type="text" placeholder="annabeck99" className="userUpdateInput"></input>
                 </div>
-              </div>
-              <div className="userUpdateRight">
 
+                <div className="userUpdateItem">
+                  <label>First Name</label>
+                  <input type="text" placeholder="Anna" className="userUpdateInput"></input>
+                </div>
+
+                <div className="userUpdateItem">
+                  <label>Last Name</label>
+                  <input type="text" placeholder="Becker" className="userUpdateInput"></input>
+                </div>
+
+                <div className="userUpdateItem">
+                  <label>Email</label>
+                  <input type="text" placeholder="annabeck99@gmail.com" className="userUpdateInput"></input>
+                </div>
+
+                <div className="userUpdateItem">
+                  <label>Phone</label>
+                  <input type="text" placeholder="+40770688389" className="userUpdateInput"></input>
+                </div>
+
+              </div>
+
+              <div className="userUpdateRight">
+                <div className="userUpdatePassword">
+
+                  <div className="userUpdateItem">
+                    <label>New Password</label>
+                    <input type="password" placeholder="Enter Password" className="userUpdateInput"></input>
+                  </div>
+
+                  <div className="userUpdateItem">
+                    <label>Repeat Password</label>
+                    <input type="password" placeholder="Cofirm Password" className="userUpdateInput"></input>
+                  </div>
+                </div>
+
+                <button className="userUpdateButton">Update</button>
               </div>
             </form>
           </div>

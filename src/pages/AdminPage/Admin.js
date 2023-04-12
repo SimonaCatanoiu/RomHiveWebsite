@@ -2,6 +2,7 @@ import React from "react";
 import "./Admin.css"
 import Sidebar from "../../components/Sidebar/Sidebar";
 import MainPage from "./MainPage/MainPage";
+import { Col, Container, Row } from "react-bootstrap";
 
 const Admin = () => 
 {
@@ -10,8 +11,8 @@ const Admin = () =>
     <br></br>
     <br></br>
     <div className="container_admin">
-      <Sidebar/>
-      <MainPage/>
+        <Sidebar/>
+        <MainPage/>
     </div>
   </div>
 }
