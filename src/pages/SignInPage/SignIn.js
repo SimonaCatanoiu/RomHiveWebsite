@@ -29,7 +29,9 @@ const SignIn = () =>
                     <div className="col-lg-6 my-5">
                       <input type="email" placeholder="Email-Address" className="form-control my-4 p-2"/>
                       <input type="password" placeholder="Password" className="form-control my-4 p-2"/>
+                      <Link to="/">
                       <button className="btn btn-dark my-3 mb-2">Login</button>
+                      </Link>
                       <a href="#" onClick= {()=> setOpenPopup(true)} >Forgot password</a>
                       <p>Don't have an account?
                       <Link to="/signUp"><a>Register here</a></Link>

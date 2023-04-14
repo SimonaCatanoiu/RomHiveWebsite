@@ -6,6 +6,7 @@ import EmailIcon from '@mui/icons-material/Email';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import PhoneIcon from '@mui/icons-material/Phone';
 import LockIcon from '@mui/icons-material/Lock';
+import { Link } from "react-router-dom";
 
 const SignUp = () => 
 {
@@ -62,7 +63,9 @@ const SignUp = () =>
                 </div>
                 <div className="form-row d-flex justify-content-center">
                   <div className="col-lg-4">
+                  <Link to="/signin">
                           <button className="btn btn-dark my-1 mb-3">Register</button>
+                  </Link>
                   </div>
                 </div>
             </form>
