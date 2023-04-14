@@ -1,13 +1,15 @@
 import React from "react";
-
+import  ControlledCarousel  from "../../components/Carousel/ControlledCarousel.js"
+import  Footer  from "../../components/Footer/Footer.js"
+import "./Reviews.css"
 const Reviews = () => 
 {
-  return <div>
+  return <div className="reviews_page">
     <br></br>
     <br></br>
     <br></br>
-    <br></br>
-    <h1>REVIEW PAGE</h1>
+    <ControlledCarousel></ControlledCarousel>
+    <Footer></Footer>
   </div>
 }
 

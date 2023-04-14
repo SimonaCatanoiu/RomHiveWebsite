@@ -1,0 +1,98 @@
+:root {
+    --heading-color: black;
+    --secondary-color: rgb(107,21,26);
+    --third-color: #d2386c;
+}
+
+.carousel_container
+{
+    margin-top: 9px;
+}
+
+.carousel_image {
+    width: 100%;
+    object-fit:cover !important;
+}
+.carousel_caption {
+    border:1px solid gray;
+    background-color: rgba(255,255,255,0.6);
+    border-radius: 10px;
+}
+
+.carousel_title
+{
+    color:var(--secondary-color);
+    font-weight: 600px;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.carousel_subtitle
+{
+    color:var(--secondary-color);
+    font-weight: 600px;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.carousel_description
+{
+    color:white;
+    font-weight: 600;
+    padding:20px;
+    margin-top: 10px;
+    box-shadow: 0px 0px 15px -10px rgba(0,0,0,0.75);
+    background-color:#d2386c;
+    margin:20px;
+    border-radius: 10px;
+}
+
+.carousel_Show{
+    padding:10px;
+    box-shadow: 0px 0px 15px -10px rgba(0,0,0,0.75);
+    background-color: white !important;
+    width: 100%;
+}
+
+.carousel_ShowImg{
+    width:150px;
+    height: 120px;
+    border-radius: 4px;
+    object-fit:fill;
+    border:2px solid #d2386c;
+}
+
+.carousel_ShowTopTitle{
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    margin-top: 0.6rem;
+}
+
+.carousel_ShowUsername{
+    font-weight: 600;
+    font-size: 1.4rem;
+}
+
+.carousel_ShowUserTitle{
+    font-weight: 300;
+    font-size: 1.2rem;
+}
+
+.carousel_ShowInfo{
+    display:flex;
+    align-items: center;
+    color:#444;
+    font-size: 1.5rem;
+}
+
+.carousel_ShowIcon{
+    font-size:16px !important;
+}
+
+.carousel_ShowInfoTitle{
+    margin-left:10;
+}
+
