@@ -21,7 +21,9 @@ class Navbar extends React.Component {
         return(
             <nav className='NavbarItems'>
                 <h1 className='navbar-logo'>
+                <StyledLink to="/">
                     <img src="../../../images/logo2.png" className='navbar-logo-img'/>    
+                </StyledLink>
                 </h1>
                 <div className='menu-icon' onClick={this.handleClick}>
                 <i className="material-symbols-outlined">{this.state.clicked ? "menu_open" : "menu"}</i>

@@ -1,50 +1,59 @@
-import React,{useState} from 'react'
+import React, {useState} from 'react'
 import "../Admin.css"
 import "./TripsPage.css"
 import Sidebar from "../../../components/Sidebar/Sidebar.js";
 import { DataGrid } from '@mui/x-data-grid';
-import PersonIcon from '@mui/icons-material/Person';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import {rows} from './TripsData'
+import {Tripsrows} from './TripsData'
 import { Link } from 'react-router-dom';
 
 
 export default function TripsPage() {
 
-  const [data,setData] = useState(rows)
+  const [Tripdata,setTripsrows] = useState(Tripsrows)
 
   const handleDelete = (id) => {
-    setData(data.filter(item=>item.id!==id));
+    const index = Tripdata.findIndex((row) => row.id === id);
+    console.log(index);
+    if (index !== -1) {
+    const newRows = [...Tripdata];
+    newRows.splice(index, 1);
+    console.log(newRows);
+    setTripsrows(newRows);
+    }
   }
 
-  const columns = [
+  const Tripscolumns = [
     { field: 'id', headerName: 'ID', align: 'center',width: 90, headerAlign: 'center'},
     {
       field: 'name',
       headerName: 'Name',
-      width: 200,
+      width: 450,
       renderCell: (params) => {
         return (
-          <div className="userList">
-            <PersonIcon/>{params.row.name}
+          <div className="TripList">
+            <img className="TripListImg" src={params.row.picture} alt=""/>{params.row.name}
           </div>
         )
       },
       editable: false,
-      align: 'center',
-      headerAlign: 'center'
     },
     {
-      field: 'email',
-      headerName: 'Email',
-      width: 300,
+      field: 'price',
+      headerName: 'Price',
+      width: 160,
       editable: false,
+      renderCell: (params) => {
+        return (
+          <span>{params.row.price}$</span>
+        )
+      },
       align: 'center',
       headerAlign: 'center'
     },
     {
-      field: 'staus',
-      headerName: 'Status',
+      field: 'city',
+      headerName: 'City',
       width: 130,
       editable: false,
       align: 'center',
@@ -52,10 +61,17 @@ export default function TripsPage() {
       headerAlign: 'center'
     },
     {
-      field: 'transaction',
-      headerName: 'Transaction',
-      description: 'This column has a value getter and is not sortable.',
-      sortable: false,
+      field: 'country',
+      headerName: 'Country',
+      sortable: true,
+      width: 160,
+      align: 'center',
+      headerAlign: 'center'
+    },
+    {
+      field: 'feature',
+      headerName: 'Featured',
+      sortable: true,
       width: 160,
       align: 'center',
       headerAlign: 'center'
@@ -67,10 +83,10 @@ export default function TripsPage() {
       renderCell: (params) => {
         return (
           <>
-          <Link style={{ textDecoration: 'none' }} to={"/adminpage/users/"+params.row.id}>
-            <button className="userListEdit">Edit</button>
+          <Link style={{ textDecoration: 'none' }} to={"/adminpage/Trips/"+params.row.id}>
+            <button className="tripListEdit">Edit</button>
           </Link>
-            <DeleteOutlineIcon className="userListDelete" onClick={()=>handleDelete(params.row.id)}/>
+            <DeleteOutlineIcon className="tripListDelete" onClick={()=>handleDelete(params.row.id)}/>
           </>
         )
       },
@@ -78,7 +94,6 @@ export default function TripsPage() {
       headerAlign: 'center'
     }
   ];
-
 
   return (
     <div>
@@ -89,7 +104,22 @@ export default function TripsPage() {
     <div className="container_admin">
       <Sidebar/>
       <div className='tripPage'>
-        Trip PAGE
+        <DataGrid
+          rows={Tripdata}
+          columns={Tripscolumns}
+          initialState={{
+            pagination: {
+              paginationModel: {
+                pageSize: 4,
+                rowCount: Tripdata.length,
+                currentPage: 0,
+              },
+            },
+          }}
+          pageSizeOptions={[4]}
+          disableRowSelectionOnClick
+          rowHeight={130}
+        />
       </div>
     </div>
   </div>

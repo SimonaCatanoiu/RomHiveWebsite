@@ -24,7 +24,7 @@ export default function Users() {
       width: 200,
       renderCell: (params) => {
         return (
-          <div className="userList">
+          <div className="userNameList">
             <PersonIcon/>{params.row.name}
           </div>
         )

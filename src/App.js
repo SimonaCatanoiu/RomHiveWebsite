@@ -12,6 +12,7 @@ import OrderCompleted from './pages/OffersPage/OrderCompleted/OrderCompleted.js'
 import Users from './pages/AdminPage/Users/Users.js';
 import NewUser from './pages/AdminPage/Users/NewUser.js';
 import Trips from './pages/AdminPage/TripsPage/TripsPage.js'
+import TripsEdit from './pages/AdminPage/TripsPage/TripsEdit.js'
 import Transactions from './pages/AdminPage/TransactionsPage/TransactionPage.js'
 import Settings from './pages/AdminPage/SettingsPage/SettingsPage.js'
 import AddUser from './pages/AdminPage/Users/AddUser.js'
@@ -40,6 +41,7 @@ function App() {
         <Route path='/adminPage/Users' element={<Users/>}></Route>
         <Route path='/adminPage/Users/:id' element={<NewUser/>}></Route>
         <Route path='/adminPage/Trips' element={<Trips/>}></Route>
+        <Route path='/adminPage/Trips/:id' element={<TripsEdit/>}></Route>
         <Route path='/adminPage/Transactions' element={<Transactions/>}></Route>
         <Route path='/adminPage/Settings' element={<Settings/>}></Route>
         <Route path='/adminPage/AddUser' element={<AddUser/>}></Route>
