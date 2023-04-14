@@ -52,7 +52,7 @@ export default function Users() {
     },
     {
       field: 'transaction',
-      headerName: 'Transaction',
+      headerName: 'Last Transaction',
       description: 'This column has a value getter and is not sortable.',
       sortable: false,
       width: 160,

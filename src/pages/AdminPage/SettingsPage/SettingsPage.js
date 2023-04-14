@@ -12,8 +12,8 @@ export default function SettingsPage() {
     <div className="container_admin">
       <Sidebar/>
       <div className='settingsPage'>
-
-      </div>
+          TO BE DONE
+      </div>  
     </div>
   </div>
   )

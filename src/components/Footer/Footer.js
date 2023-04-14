@@ -46,7 +46,9 @@ export default function Footer() {
                 <a className='text-reset' onClick={()=> setOpenPopupC(true)}>Contact</a>
               </p>
               <p>
+              <StyledLink to='/EditProfile'>
                 <a className='text-reset'>Your Account</a>
+              </StyledLink>
               </p>
               <p>
                 <a className='text-reset' onClick={()=> setOpenPopupN(true)}>Subscribe to the newslatter</a>

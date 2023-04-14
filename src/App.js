@@ -15,6 +15,7 @@ import Trips from './pages/AdminPage/TripsPage/TripsPage.js'
 import Transactions from './pages/AdminPage/TransactionsPage/TransactionPage.js'
 import Settings from './pages/AdminPage/SettingsPage/SettingsPage.js'
 import AddUser from './pages/AdminPage/Users/AddUser.js'
+import EditProfile from './pages/EditProfilePage/EditProfile.js'
 
 import {
   Routes,
@@ -42,6 +43,7 @@ function App() {
         <Route path='/adminPage/Transactions' element={<Transactions/>}></Route>
         <Route path='/adminPage/Settings' element={<Settings/>}></Route>
         <Route path='/adminPage/AddUser' element={<AddUser/>}></Route>
+        <Route path='/EditProfile' element={<EditProfile/>}></Route>
       </Routes>
     </div>
   );
