@@ -24,7 +24,7 @@ export default ScrollToTop;
 root.render(
      <Router>
          <ScrollToTop>
-       <App />
+       <App/>
        </ScrollToTop>
      </Router>,
     document.getElementById('root')

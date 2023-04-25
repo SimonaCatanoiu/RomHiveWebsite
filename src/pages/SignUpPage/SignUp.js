@@ -10,6 +10,26 @@ import { Link } from "react-router-dom";
 
 const SignUp = () => 
 {
+  const [credentials,setCredentials] = useState(
+    {
+      email: undefined,
+      firstname: undefined,
+      lastname: undefined,
+      mobilephone:undefined,
+      password: undefined,
+      confirm_password:undefined,
+    }
+  )
+
+  const handleChange = e =>
+  {
+    setCredentials(prev=> ({...prev,[e.target.id]:e.target.value}));
+  }
+
+  const handleClick = e => {
+    e.preventDefault();
+  }
+
   const [openPopup,setOpenPopup] = useState(false)
   return <div className="pageBody">
     <br></br>
@@ -26,38 +46,37 @@ const SignUp = () =>
           <h1 className="font-weight-bold py-4" id="header" >Sign Up</h1>
           <h1 id="header2">Join the hive and unlock smarter ways to roam with RoamHive!</h1>
           <div className="container">
-            <form>
+            <form onSubmit={handleClick}>
                 <div className="form-row d-flex justify-content-center">
                     <div className="col-lg-6 my-3">
-                      <div class="input-group mb-3">
+                        <div class="input-group mb-3">
                           <span class="input-group-text"><EmailIcon></EmailIcon></span>
-                          <input type="text" class="form-control p-2" placeholder="Email-Address" aria-label="Email-Address"/>
+                          <input type="text" class="form-control p-2" placeholder="Email-Address" aria-label="Email-Address" onChange={handleChange}/>
                         </div>
 
                         <div class="input-group mb-3">
                           <span class="input-group-text"><EditNoteIcon></EditNoteIcon></span>
-                          <input type="text" class="form-control p-2" placeholder="First Name" aria-label="First Name"/>
+                          <input type="text" class="form-control p-2" placeholder="First Name" aria-label="First Name" onChange={handleChange}/>
                         </div>
 
                         <div class="input-group mb-3">
                           <span class="input-group-text"><EditNoteIcon></EditNoteIcon></span>
-                          <input type="text" class="form-control p-2" placeholder="Last Name" aria-label="Last Name"/>
+                          <input type="text" class="form-control p-2" placeholder="Last Name" aria-label="Last Name" onChange={handleChange}/>
                         </div>
 
                         <div class="input-group mb-3">
                           <span class="input-group-text"><PhoneIcon></PhoneIcon></span>
-                          <input type="text" class="form-control p-2" placeholder="Mobile Phone" aria-label="Mobile Phone"/>
+                          <input type="text" class="form-control p-2" placeholder="Mobile Phone" aria-label="Mobile Phone"  onChange={handleChange}/>
                         </div>
 
                         <div class="input-group mb-3">
                           <span class="input-group-text"><LockIcon></LockIcon></span>
-                          <input type="password" class="form-control p-2" placeholder="Password" aria-label="Password"/>
+                          <input type="password" class="form-control p-2" placeholder="Password" aria-label="Password"  onChange={handleChange}/>
                         </div>
           
-
                         <div class="input-group mb-3">
                           <span class="input-group-text"><LockIcon></LockIcon></span>
-                          <input type="password" class="form-control p-2" placeholder="Confirm Password" aria-label="Confirm Password"/>
+                          <input type="password" class="form-control p-2" placeholder="Confirm Password" aria-label="Confirm Password" onChange={handleChange}/>
                         </div>
                     </div>
                 </div>

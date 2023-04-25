@@ -3,10 +3,26 @@ import "./SignIn.css";
 import Popup from "../../components/Popup/Popup.js";
 import ForgotPasswordForm from "./ForgotPassword";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Link } from "react-router-dom";
+import {Link } from "react-router-dom";
 
 const SignIn = () => 
 {
+  const [credentials,setCredentials] = useState(
+    {
+      email: undefined,
+      password: undefined
+    }
+  )
+
+  const handleChange = e =>
+  {
+    setCredentials(prev=> ({...prev,[e.target.id]:e.target.value}));
+  }
+
+  const handleClick = e => {
+    e.preventDefault();
+  }
+
   const [openPopup,setOpenPopup] = useState(false)
   return <div className="pageBody">
     <br></br>
@@ -27,11 +43,14 @@ const SignIn = () =>
             <form>
                 <div className="form-row d-flex justify-content-center">
                     <div className="col-lg-6 my-5">
-                      <input type="email" placeholder="Email-Address" className="form-control my-4 p-2"/>
-                      <input type="password" placeholder="Password" className="form-control my-4 p-2"/>
-                      <Link to="/">
-                      <button className="btn btn-dark my-3 mb-2">Login</button>
-                      </Link>
+                    <form onSubmit={handleClick}>
+                        <input type="email" placeholder="Email-Address" className="form-control my-4 p-2" onChange={handleChange}/>
+                        <input type="password" placeholder="Password" className="form-control my-4 p-2" onChange={handleChange}/>
+                        
+                        <Link to="/">
+                        <button className="btn btn-dark my-3 mb-2" type="submit">Login</button>
+                        </Link>
+                    </form>
                       <a href="#" onClick= {()=> setOpenPopup(true)} >Forgot password</a>
                       <p>Don't have an account?
                       <Link to="/signUp"><a>Register here</a></Link>

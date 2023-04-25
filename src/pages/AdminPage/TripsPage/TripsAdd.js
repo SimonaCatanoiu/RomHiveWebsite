@@ -1,23 +1,16 @@
 import React,{useState} from 'react'
 import Sidebar from "../../../components/Sidebar/Sidebar";
 import { Col,Row, Container } from 'react-bootstrap';
-import { Link,useParams } from 'react-router-dom';
-
+import { Link } from 'react-router-dom';
 import "../Admin.css"
 import "./TripsEdit.css"
 import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
-import {TripData} from "./TripsData.js"
 
 export default function TripsEdit() {
-  const { id } = useParams();
-  const selectedTrip = TripData.find(trip => trip.id == id);
-  console.log(selectedTrip);
+
   const [file, setFile] = useState(null);
-  const [filePath, setFilePath] = useState(selectedTrip.photo);
-
-
+  const [filePath, setFilePath] = useState("");
   
-
   const handleFileSelected = (event) => {
     const selectedFile = event.target.files[0];
     if (selectedFile) {
@@ -40,13 +33,8 @@ export default function TripsEdit() {
         <div className="TripsTitleContainer">
           <Container>
             <Row>
-              <Col lg='10'>
-                <h1 className='TripsTitle'>Edit Product</h1>
-              </Col>
-              <Col lg='2' className='d-flex justify-content-end'>
-                <Link style={{textDecoration: 'none'}} to="/adminPage/TripsAdd">
-                  <button className="ProductAddButton">Add</button>
-                </Link>
+              <Col lg='12'>
+                <h1 className='TripsTitle'>Add Product</h1>
               </Col>
             </Row>
           </Container>
@@ -56,34 +44,34 @@ export default function TripsEdit() {
           <Row>
           <Col lg="12">
           <div className="ProductUpdate">
-            <span className="ProductUpdateTitle">Edit</span>
+            <span className="ProductUpdateTitle">Add</span>
             <form className="ProductUpdateForm">
               <div className="ProductUpdateLeft">
                 
                 <div className="ProductUpdateItem">
                   <label>Trip Title</label>
-                  <input type="text" placeholder={selectedTrip.title} className="ProductUpdateInput"></input>
+                  <input type="text" placeholder="Trip Title" className="ProductUpdateInput"></input>
                 </div>
 
                 <div className="ProductUpdateItem">
                   <label>Trip City</label>
-                  <input type="text" placeholder={selectedTrip.city} className="ProductUpdateInput"></input>
+                  <input type="text" placeholder="Trip City" className="ProductUpdateInput"></input>
                 </div>
 
                 <div className="ProductUpdateItem">
                   <label>Distance</label>
-                  <input type="text" placeholder={selectedTrip.distance} className="ProductUpdateInput"></input>
+                  <input type="text" placeholder="Distance" className="ProductUpdateInput"></input>
                 </div>
 
                 <div className="ProductUpdateItem">
                     <label>Address</label>
-                    <input type="text" placeholder={selectedTrip.address} className="ProductUpdateInput"></input>
+                    <input type="text" placeholder="Address" className="ProductUpdateInput"></input>
                   </div>
 
 
                 <div className="ProductUpdateItem">
                   <label>Description</label>
-                  <textarea name="textarea" placeholder={selectedTrip.desc} className="ProductUpdateTextArea"></textarea>
+                  <textarea name="textarea" placeholder="Description" className="ProductUpdateTextArea"></textarea>
                 </div>
                 
 
@@ -93,16 +81,16 @@ export default function TripsEdit() {
                 <div>
                   <div className="ProductUpdateItem">
                     <label>Price</label>
-                    <input type="text" placeholder={selectedTrip.price} className="ProductUpdateInput"></input>
+                    <input type="text" placeholder="Price" className="ProductUpdateInput"></input>
                   </div>
 
                   <div className="ProductUpdateItem">
                     <label>Featured</label>
-                    <input type="text" placeholder={selectedTrip.featured === true ? "true" : "false" } className="ProductUpdateInput"></input>
+                    <input type="text" placeholder="Featured" className="ProductUpdateInput"></input>
                   </div>
                   <div className="ProductUpdateItem">
                     <label>Max Group Size</label>
-                    <input type="text" placeholder={selectedTrip.maxGroupSize} className="ProductUpdateInput"></input>
+                    <input type="text" placeholder="Size" className="ProductUpdateInput"></input>
                   </div>
 
                   <div className="ProductUpdateItem">
@@ -115,11 +103,9 @@ export default function TripsEdit() {
                       <label>{filePath}</label>
                     </div>         
                 </div>
-
-
                 </div>
 
-                <button className="ProductUpdateButton">Update</button>
+                <button className="ProductUpdateButton">Add Product</button>
               </div>
             </form>
           </div>
