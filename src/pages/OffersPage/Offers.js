@@ -3,9 +3,11 @@ import CommonSection from "./CommonSection/CommonSection";
 import Footer from "../../components/Footer/Footer.js"
 import { Col, Container, Row } from "react-bootstrap";
 import OfferCard from "./OfferCard/OfferCard"
-import { offerData } from "./OfferCard/OffersData"
 import SearchBar from "../../components/SearchBar/SearchBar";
 import './Offers.css'
+
+import useFetch from './../../hooks/useFetch.js'
+import {BASE_URL} from '../../utils/config.js'
 
 const Offers = () => 
 {
@@ -13,11 +15,15 @@ const Offers = () =>
   const [pageCount,setPageCount] = useState(0)
   const [page,setPage] = useState(0)
 
+  const {data:offers,loading,error} = useFetch(`${BASE_URL}/offers?page=${page}`)
+  const {data:offerCount} = useFetch(`${BASE_URL}/offers/search/getOfferCount`)
+
   useEffect(()=>
     {
-      const pages = Math.ceil(5/4); //de modificat in backend
+      const pages = Math.ceil(offerCount/8); 
       setPageCount(pages);
-    },[page]
+      window.scrollTo(0,0)
+    },[page,offerCount,offers]
   );
 
   return <div>
@@ -34,10 +40,17 @@ const Offers = () =>
     </section>
     <section className="mt-4">
       <Container>
-        <Row>
+        {
+          loading && <h4 className="text-center pt-5">Loading...</h4>
+        }
+        {
+          error && <h4 className="text-center pt-5">{error}</h4>
+        }
+        {
+          !loading && !error && <Row>
           {
-            offerData?.map(offer=>
-            <Col lg='3' className="mt-3" key={offer.id}>
+            offers?.map(offer=>
+            <Col lg='3' className="mt-3" key={offer._id}>
               <OfferCard offer={offer}/>
             </Col>)
           }
@@ -55,6 +68,7 @@ const Offers = () =>
             </div>
           </Col>
         </Row>
+        }
       </Container>
     </section>
     <section>
