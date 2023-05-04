@@ -23,6 +23,7 @@ const OfferDetails = () => {
     const [tourRating,setTourRating]=useState(null);
 
     const offer = offerData.find(offer => offer.id === id)
+    console.log(offer)
     const { photo, title, desc, price, reviews, city, distance, maxGroupSize, address } = offer
 
     const totalRating = reviews?.reduce((acc, item) =>

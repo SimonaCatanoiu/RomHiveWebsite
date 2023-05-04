@@ -3,7 +3,7 @@ import CommonSection from "./CommonSection/CommonSection";
 import Footer from "../../components/Footer/Footer.js"
 import { Col, Container, Row } from "react-bootstrap";
 import OfferCard from "./OfferCard/OfferCard"
-import OfferData, { offerData } from "./OfferCard/OffersData"
+import { offerData } from "./OfferCard/OffersData"
 import SearchBar from "../../components/SearchBar/SearchBar";
 import './Offers.css'
 

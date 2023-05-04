@@ -7,7 +7,7 @@ import './OfferCard.css'
 
 const OfferCard = ({offer}) => {
 
-    const {id,title,city,photo,price,featured,reviews}=offer
+    const {_id,title,city,photo,price,featured,reviews}=offer
 
     const totalRating = reviews?.reduce((acc,item)=>
     acc+item.rating,0)
@@ -35,7 +35,7 @@ const OfferCard = ({offer}) => {
                     </div>
 
                     <h5 className="offer__title">
-                        <Link to={`/offers/${id}`}> {title}</Link>
+                        <Link to={`/offers/${_id}`}> {title}</Link>
                     </h5>
 
                     <div className='card__bottom d-flex align-items-center justify-content-between mt-3'>
@@ -43,7 +43,7 @@ const OfferCard = ({offer}) => {
                             ${price} <span> /per person</span>
                         </h5>
                         <button className='btn booking__btn'>
-                            <Link to={`/offers/${id}`}>
+                            <Link to={`/offers/${_id}`}>
                                 Book Now
                             </Link>
                         </button>

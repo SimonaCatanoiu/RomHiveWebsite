@@ -18,6 +18,7 @@ import Transactions from './pages/AdminPage/TransactionsPage/TransactionPage.js'
 import Settings from './pages/AdminPage/SettingsPage/SettingsPage.js'
 import AddUser from './pages/AdminPage/Users/AddUser.js'
 import EditProfile from './pages/EditProfilePage/EditProfile.js'
+import SearchResultList from './components/SearchBar/SearchResultList.js'
 
 import {
   Routes,
@@ -33,6 +34,7 @@ function App() {
         <Route path="/" element={<Navigate to="/home"/>} />
         <Route path='/home' element={<Home/>}></Route>
         <Route path='/offers' element={<Offers/>}></Route>
+        <Route path='/offers/search' element={<SearchResultList/>}></Route>
         <Route path='/offers/:id' element={<OfferDetails/>}></Route>
         <Route path='/reviews' element={<Reviews/>}></Route>
         <Route path='/adminPage' element={<Admin/>}></Route>
