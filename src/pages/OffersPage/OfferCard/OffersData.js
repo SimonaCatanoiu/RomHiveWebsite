@@ -171,5 +171,33 @@ export const offerData = [
                 message:"Great 2 hour tour of the city. With the small car; easy to get around the London traffic. Our guide was excellent and fun to be around. Very good knowledge of the area. One caution: small car...can be difficult or impossible to get in and out of the back seat particularly if you are tall."
             }
         ]
-    }
+    },
+    {
+        id:"09",
+        title:"Warsaw Food Tasting Tour",
+        city:"Warsaw, Poland",
+        distance:1100,
+        photo:"../../../images/warsaw.jpg",
+        address:'plac Konstytucji 1, 00-647 Warszawa, Poland',
+        price:50,
+        featured:false,
+        maxGroupSize: 2,
+        desc: "It’s always hard to find the best places to eat in a new city—and samples are impossible to negotiate without a local guide. Discover Poland’s rich cuisine and Warsaw’s most authentic eateries on an early evening tasting tour with a guide. Try may different types of food and drink at local restaurants: enough for a full dinner.",
+        reviews:[
+        ]
+    },
+    {
+        id:"10",
+        title:"Whale and Dolphin Watching",
+        city:"Madeira, Portugal",
+        distance:3836,
+        photo:"../../../images/madeira.jpg",
+        address:'Praça do Povo, Av. Do Mar 4, 9000-900 Funchal, Portugal',
+        price:70,
+        featured:true,
+        maxGroupSize: 12,
+        desc: "The sea is indisputably the best place from which to observe Cabo Girao, some of the world's tallest sea cliffs. Bag yourself the best views on this whale-watching cruise from Funchal, perfect for nature lovers. On a catamaran, find a seat on the deck and enjoy the scenery while scanning the horizon for dolphins and whales. Plus, a range of departure times allows this tour to slot seamlessly into your itinerary.",
+        reviews:[
+        ]
+    },
 ]
