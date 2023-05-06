@@ -1,4 +1,4 @@
-import React, {useRef,useState,useEffect} from "react";
+import React, {useRef,useState,useEffect,useContext} from "react";
 import "./OfferDetails.css"
 import { useParams } from "react-router";
 import { Col, Container, Form, Row } from "react-bootstrap";
@@ -13,12 +13,18 @@ import { MDBListGroup } from "mdb-react-ui-kit";
 import avatar from "../../../components/assets/avatar.jpg"
 import Booking from "./Booking";
 import {BASE_URL} from './../../../utils/config.js'
+import {AuthContext} from './../../../context/AuthContext.js'
+import SuccessPopUp from './../../../components/Popup/SuccessPopUp.js'
+import Popup from "./../../../components/Popup/Popup.js";
 
 const OfferDetails = () => {
     const { id } = useParams()
     const reviewMsgRef = useRef('')
     const [tourRating,setTourRating]=useState(null);
-    
+    const {user} = useContext(AuthContext)
+    const [openPopup,setOpenPopup] = useState(false)
+
+    const [selectedRating, setSelectedRating] = useState(0);
     const [offer,setData]=useState(null)
     const [errorFetch,setError]=useState(null)
     useEffect(() => {
@@ -37,7 +43,7 @@ const OfferDetails = () => {
     if (!offer) {
         return <div><br/><br/><br/><br/><p>Loading...</p></div>
     }
-    console.log(offer.data)
+
     const { photo, title, desc, price, reviews, city, distance, maxGroupSize, address } = offer.data
 
     const totalRating = reviews?.reduce((acc, item) =>
@@ -50,11 +56,50 @@ const OfferDetails = () => {
 
     const options = { day: 'numeric', month: 'long', year: 'numeric' };
 
-    const submitHandler = e=>
+    const handleRatingClick = (rting) => {
+        setSelectedRating((prevRating) => (prevRating === rting ? 0 : rting));
+    };
+
+    const submitHandler = async e=>
     {
         e.preventDefault()
-        const reviewText = reviewMsgRef.current.value
-        alert(`${reviewText}, ${tourRating}`)
+        const reviewText = reviewMsgRef.current.value;
+
+        try{
+
+            if(!user || user===undefined || user===null)
+            {
+                alert('You are not signed in!')
+                return
+            }
+
+            const toSend = {
+                username:user?.username,
+                reviewText:reviewText,
+                rating:tourRating
+            }
+
+            const res = await fetch(`${BASE_URL}/review/${id}`,{
+                method:'post',
+                headers:{
+                    'content-type': 'application/json'
+                },
+                credentials:'include',
+                body:JSON.stringify(toSend)
+            })
+
+           const result = await res.json()
+           if(!res.ok)
+           {
+                return alert(result.message);
+           }
+           setOpenPopup(true);
+        }
+        catch(err)
+        {
+            alert(err.message);
+        }
+
     }
     
     return <>
@@ -113,11 +158,11 @@ const OfferDetails = () => {
                                 </h4>
                                 <Form onSubmit={submitHandler}>
                                     <div className="d-flex align-items-center gap-3 mb-4 rating__group">
-                                        <span onClick={()=>setTourRating(1)}>1<StarIcon /></span>
-                                        <span onClick={()=>setTourRating(2)}>2<StarIcon /></span>
-                                        <span onClick={()=>setTourRating(3)}>3<StarIcon /></span>
-                                        <span onClick={()=>setTourRating(4)}>4<StarIcon /></span>
-                                        <span onClick={()=>setTourRating(5)}>5<StarIcon /></span>
+                                        <span className={selectedRating >= 1 ? "selected" : ""} onClick={()=>{setTourRating(1);  handleRatingClick(1);}}>1<StarIcon /></span>
+                                        <span className={selectedRating >= 2 ? "selected" : ""} onClick={()=>{setTourRating(2);  handleRatingClick(2);}}>2<StarIcon /></span>
+                                        <span className={selectedRating >= 3 ? "selected" : ""} onClick={()=>{setTourRating(3);  handleRatingClick(3);}}>3<StarIcon /></span>
+                                        <span className={selectedRating >= 4 ? "selected" : ""} onClick={()=>{setTourRating(4);  handleRatingClick(4);}}>4<StarIcon /></span>
+                                        <span className={selectedRating >= 5 ? "selected" : ""} onClick={()=>{setTourRating(5);  handleRatingClick(5);}}>5<StarIcon /></span>
                                     </div>
 
                                     <div className="review__input">
@@ -142,7 +187,7 @@ const OfferDetails = () => {
                                                             </h5>
                                                             <p>
                                                                 {
-                                                                    new Date('04-10-2023').toLocaleDateString("en-US",options)
+                                                                    new Date(review.createdAt).toLocaleDateString("en-US",options)
                                                                 }
                                                             </p>
                                                         </div>
@@ -170,6 +215,11 @@ const OfferDetails = () => {
                 </Row>
             </Container>
         </section>
+        <Popup openPopup={openPopup}
+        setOpenPopup={setOpenPopup}
+        title="Submitted review!">
+        <SuccessPopUp setOpenPopup={setOpenPopup}></SuccessPopUp>
+        </Popup>
         <section>
             <Footer></Footer>
         </section>

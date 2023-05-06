@@ -1,4 +1,4 @@
-export const MenuItems = [
+export const MenuItems = (user,logout) => [
     {
         title: 'Home',
         url: '/home',
@@ -15,18 +15,14 @@ export const MenuItems = [
         cName:'nav_links'
     },
     {
-        title: 'AdminPage',
-        url: '/adminpage',
-        cName:'nav_links'
-    },
-    {
         title: 'Sign Up',
         url: '/SignUp',
-        cName:'nav_button_mobile'
+        cName: user ?'nav_button_mobile-none':'nav_button_mobile'
     },
     {
-        title: 'Sign In',
-        url: '/signin',
-        cName:'nav_button_mobile'
+        title: user ? 'Logout' : 'Sign In',
+        url: user ? '/' : '/signin',
+        cName: 'nav_button_mobile',
+        onClick: user ? logout : undefined
     },
 ]

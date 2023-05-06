@@ -4,6 +4,9 @@
     --third-color: #d2386c;
 }
 
+.selected{
+    color: #ffcf40!important;
+}
 
 .icon_card_details
 {

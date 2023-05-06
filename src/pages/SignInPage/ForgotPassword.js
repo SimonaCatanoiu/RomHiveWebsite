@@ -1,10 +1,11 @@
 import React, {useState} from "react";
 import { Button, Grid, TextField } from "@mui/material";
 import { Stack,Paper } from "@mui/material";
+import {BASE_URL} from './../../utils/config.js'
 
 const initialFormValues = {
-    username: "",
-    newPassword: "",
+    email: "",
+    password: "",
     CheckPassword: ""
 }
 
@@ -26,8 +27,50 @@ export default function ForgotPasswordForm(props)
         setOpenPopup(false);
       };
 
-    const handleSave = () => {
-    setOpenPopup(false);
+    const handleSave = async () => {
+    if (values.password === "" || values.email===""|| values.CheckPassword==="") {
+        // Passwords do not match, show error message or toast notification
+        alert("Please fill all the fields");
+        return;
+    }
+
+    if (values.password !== values.CheckPassword) {
+        // Passwords do not match, show error message or toast notification
+        alert("Passwords do not match");
+    }
+    else
+    {
+        try {
+            const toSend = {
+                email: values.email,
+                password: values.password
+              };
+            const res = await fetch(`${BASE_URL}/auth/resetPassword`,
+            {
+             method:'post',
+             headers: {
+               'content-type':'application/json'
+             },
+             body: JSON.stringify(toSend)
+            })
+       
+            const result = await res.json()
+            if(!res.ok) 
+             {
+               alert(result.message)
+               setOpenPopup(false);
+               return
+             }
+           }
+           catch(err)
+           {
+            alert(err.message)
+            setOpenPopup(false);
+               return
+           }
+        alert("Password Updated!")
+        setOpenPopup(false);
+    }
     };
 
     return ( 
@@ -42,11 +85,11 @@ export default function ForgotPasswordForm(props)
   alignItems="center">
                         <TextField 
                         sx={{width: { sm: 350, md: 400 },"& .MuiInputBase-root": {height: 50}}} 
-                    variant="outlined" label="Username" value={values.username} name="username" onChange={handleInputChange}
+                    variant="outlined" label="Email" value={values.email} name="email" onChange={handleInputChange}
                         />
                         <TextField 
                         sx={{width: { sm: 350, md: 400 },"& .MuiInputBase-root": {height: 50}}}
-                        id="outlined-password-input" type="password"  autoComplete="current-password" label="Password" name="newPassword" value={values.newPassword} onChange={handleInputChange}/>
+                        id="outlined-password-input" type="password"  autoComplete="current-password" label="Password" name="password" value={values.password} onChange={handleInputChange}/>
                         <TextField 
                         sx={{width: { sm: 350, md: 400 },"& .MuiInputBase-root": {height: 50}}} 
                         id="outlined-password-input" label="Confirm Password" name="CheckPassword" value={values.CheckPassword} onChange={handleInputChange}

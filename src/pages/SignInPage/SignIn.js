@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import "./SignIn.css";
 import Popup from "../../components/Popup/Popup.js";
 import ForgotPasswordForm from "./ForgotPassword";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {Link } from "react-router-dom";
+import {Link,useNavigate } from "react-router-dom";
+import {AuthContext} from './../../context/AuthContext.js'
+import {BASE_URL} from './../../utils/config.js'
 
 const SignIn = () => 
 {
@@ -13,14 +15,42 @@ const SignIn = () =>
       password: undefined
     }
   )
+  const {dispatch} = useContext(AuthContext)
+  const navigate = useNavigate()
 
   const handleChange = e =>
   {
     setCredentials(prev=> ({...prev,[e.target.id]:e.target.value}));
   }
 
-  const handleClick = e => {
+  const handleClick = async e => {
     e.preventDefault();
+    dispatch({type:'LOGIN_START'})
+    try {
+     const res = await fetch(`${BASE_URL}/auth/login`,
+     {
+      method:'post',
+      headers: {
+        'content-type':'application/json'
+      },
+      credentials:'include',
+      body: JSON.stringify(credentials)
+     })
+
+     const result = await res.json()
+     if(!res.ok) 
+      {
+        alert(result.message)
+        return
+      }
+
+     dispatch({type:'LOGIN_SUCCESS',payload:result.data})
+     navigate('/')
+    }
+    catch(err)
+    {
+      dispatch({type:'LOGIN_FAILURE',payload:err.message})
+    }
   }
 
   const [openPopup,setOpenPopup] = useState(false)
@@ -40,17 +70,12 @@ const SignIn = () =>
           <h1 id="header2">Welcome back to the smarter way to roam 
           <br/>Login to RoamHive and continue your journey!</h1>
           <div className="container">
-            <form>
+            <form  onSubmit={handleClick}>
                 <div className="form-row d-flex justify-content-center">
                     <div className="col-lg-6 my-5">
-                    <form onSubmit={handleClick}>
-                        <input type="email" placeholder="Email-Address" className="form-control my-4 p-2" onChange={handleChange}/>
-                        <input type="password" placeholder="Password" className="form-control my-4 p-2" onChange={handleChange}/>
-                        
-                        <Link to="/">
+                        <input type="email" id="email" placeholder="Email-Address" className="form-control my-4 p-2" onChange={handleChange}/>
+                        <input type="password" id="password" placeholder="Password" className="form-control my-4 p-2" onChange={handleChange}/>
                         <button className="btn btn-dark my-3 mb-2" type="submit">Login</button>
-                        </Link>
-                    </form>
                       <a href="#" onClick= {()=> setOpenPopup(true)} >Forgot password</a>
                       <p>Don't have an account?
                       <Link to="/signUp"><a>Register here</a></Link>

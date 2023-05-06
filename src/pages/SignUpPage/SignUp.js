@@ -9,7 +9,7 @@ import LockIcon from '@mui/icons-material/Lock';
 import { useNavigate } from "react-router-dom";
 import {AuthContext} from './../../context/AuthContext.js'
 import {BASE_URL} from './../../utils/config.js'
-import SuccessPopUp from './SuccessPopUp.js'
+import SuccessPopUp from './../../components/Popup/SuccessPopUp.js'
 
 const SignUp = () => 
 {
