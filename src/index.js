@@ -7,6 +7,7 @@ import {
 } from "react-router-dom"
 import { useEffect } from "react";
 import { useLocation } from "react-router";
+import {AuthContextProvider} from "./context/AuthContext.js"
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -22,10 +23,12 @@ const ScrollToTop = (props) => {
 export default ScrollToTop;
 
 root.render(
-     <Router>
-         <ScrollToTop>
-       <App/>
-       </ScrollToTop>
-     </Router>,
+     <AuthContextProvider>
+      <Router>
+          <ScrollToTop>
+        <App/>
+        </ScrollToTop>
+      </Router>
+     </AuthContextProvider>,
     document.getElementById('root')
   )

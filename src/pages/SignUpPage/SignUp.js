@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useContext,useEffect } from "react";
 import "./SignUp.css";
 import Popup from "../../components/Popup/Popup.js";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -6,31 +6,88 @@ import EmailIcon from '@mui/icons-material/Email';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import PhoneIcon from '@mui/icons-material/Phone';
 import LockIcon from '@mui/icons-material/Lock';
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import {AuthContext} from './../../context/AuthContext.js'
+import {BASE_URL} from './../../utils/config.js'
+import SuccessPopUp from './SuccessPopUp.js'
 
 const SignUp = () => 
 {
+  const [passwordMatch, setPasswordMatch] = useState(false);
+  const [openPopup,setOpenPopup] = useState(false)
+  const [checked,setChecked] = useState(false)
   const [credentials,setCredentials] = useState(
     {
-      email: undefined,
       firstname: undefined,
       lastname: undefined,
-      mobilephone:undefined,
+      email: undefined,
+      phone:undefined,
       password: undefined,
-      confirm_password:undefined,
     }
   )
+
+    const {dispatch} = useContext(AuthContext)
+    const navigate = useNavigate()
 
   const handleChange = e =>
   {
     setCredentials(prev=> ({...prev,[e.target.id]:e.target.value}));
+
+    if (e.target.id === "confirmpassword" && e.target.value === credentials.password) {
+      setPasswordMatch(true);
+    } else if (e.target.id  === "confirmpassword") {
+      setPasswordMatch(false);
+    }
   }
 
-  const handleClick = e => {
+  useEffect(() => {
+    if (openPopup === false && checked === true) {
+      navigate('/signin');
+    }
+  }, [openPopup,checked]);
+
+
+  const handleClick = async e => {
     e.preventDefault();
-  }
+    
+    if (!passwordMatch) {
+      alert("Passwords do not match");
+      return;
+    }
 
-  const [openPopup,setOpenPopup] = useState(false)
+    if (!(credentials.firstname && credentials.lastname && credentials.email && credentials.phone && credentials.password && credentials.confirmpassword)) {
+      alert("Please fill all the fields!");
+      return;
+    }
+
+    try{
+      const res = await fetch(`${BASE_URL}/auth/register`,
+      {
+        method:'post',
+        headers: {
+          'content-type':'application/json'
+        },
+        body: JSON.stringify(credentials)
+      })
+      const result = await res.json()
+
+      if(!res.ok)
+        alert(result.message)
+      else
+      {
+        dispatch({type:'REGISTER_SUCCESS'})
+        setOpenPopup(true)
+        setChecked(true)
+      }
+
+    }
+    catch(err)
+    {
+      alert(err.message);
+    }
+
+  }
+  
   return <div className="pageBody">
     <br></br>
     <br></br>
@@ -51,40 +108,38 @@ const SignUp = () =>
                     <div className="col-lg-6 my-3">
                         <div class="input-group mb-3">
                           <span class="input-group-text"><EmailIcon></EmailIcon></span>
-                          <input type="text" class="form-control p-2" placeholder="Email-Address" aria-label="Email-Address" onChange={handleChange}/>
+                          <input type="email" class="form-control p-2" id="email" placeholder="Email-Address" aria-label="Email-Address" onChange={handleChange}/>
                         </div>
 
                         <div class="input-group mb-3">
                           <span class="input-group-text"><EditNoteIcon></EditNoteIcon></span>
-                          <input type="text" class="form-control p-2" placeholder="First Name" aria-label="First Name" onChange={handleChange}/>
+                          <input type="text" class="form-control p-2" id="firstname" placeholder="First Name" aria-label="First Name" onChange={handleChange}/>
                         </div>
 
                         <div class="input-group mb-3">
                           <span class="input-group-text"><EditNoteIcon></EditNoteIcon></span>
-                          <input type="text" class="form-control p-2" placeholder="Last Name" aria-label="Last Name" onChange={handleChange}/>
+                          <input type="text" class="form-control p-2" id="lastname" placeholder="Last Name" aria-label="Last Name" onChange={handleChange}/>
                         </div>
 
                         <div class="input-group mb-3">
                           <span class="input-group-text"><PhoneIcon></PhoneIcon></span>
-                          <input type="text" class="form-control p-2" placeholder="Mobile Phone" aria-label="Mobile Phone"  onChange={handleChange}/>
+                          <input type="text" class="form-control p-2" id="phone" placeholder="Mobile Phone" aria-label="Mobile Phone"  onChange={handleChange}/>
                         </div>
 
                         <div class="input-group mb-3">
                           <span class="input-group-text"><LockIcon></LockIcon></span>
-                          <input type="password" class="form-control p-2" placeholder="Password" aria-label="Password"  onChange={handleChange}/>
+                          <input type="password" class="form-control p-2" id="password" placeholder="Password" aria-label="Password"  onChange={handleChange}/>
                         </div>
           
                         <div class="input-group mb-3">
                           <span class="input-group-text"><LockIcon></LockIcon></span>
-                          <input type="password" class="form-control p-2" placeholder="Confirm Password" aria-label="Confirm Password" onChange={handleChange}/>
+                          <input type="password" class="form-control p-2" id="confirmpassword" placeholder="Confirm Password" aria-label="Confirm Password" onChange={handleChange}/>
                         </div>
                     </div>
                 </div>
                 <div className="form-row d-flex justify-content-center">
                   <div className="col-lg-4">
-                  <Link to="/signin">
-                          <button className="btn btn-dark my-1 mb-3">Register</button>
-                  </Link>
+                    <button className="btn btn-dark my-1 mb-3">Register</button>
                   </div>
                 </div>
             </form>
@@ -95,7 +150,8 @@ const SignUp = () =>
     </section>
     <Popup openPopup={openPopup}
     setOpenPopup={setOpenPopup}
-    title="Reset Password">
+    title="Succesfully created account!">
+      <SuccessPopUp setOpenPopup={setOpenPopup}></SuccessPopUp>
     </Popup>
   </div>
 }

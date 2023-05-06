@@ -20,16 +20,22 @@ const OfferDetails = () => {
     const [tourRating,setTourRating]=useState(null);
     
     const [offer,setData]=useState(null)
-
+    const [errorFetch,setError]=useState(null)
     useEffect(() => {
         fetch(`${BASE_URL}/offers/${id}`)
           .then(response => response.json())
           .then(data => setData(data))
-          .catch(error => console.error(error));
+          .catch(error => {
+            console.error(error);
+            setError(error);
+          });
       }, [id]);
-    
+    if(errorFetch)
+    { 
+        return <div><br/><br/><br/><br/><p>Server Error</p></div>
+    }
     if (!offer) {
-    return <div><br/><br/><br/><br/><p>Loading...</p></div>
+        return <div><br/><br/><br/><br/><p>Loading...</p></div>
     }
     console.log(offer.data)
     const { photo, title, desc, price, reviews, city, distance, maxGroupSize, address } = offer.data
