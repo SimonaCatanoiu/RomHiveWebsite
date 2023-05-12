@@ -5,11 +5,11 @@ const router = express.Router()
 import { verifyAdmin, verifyUser } from '../utils/verifyToken.js'
 
 //update user
-router.put('/:id',verifyUser,updateUser)
+router.post('/updateUser/:id',verifyUser,updateUser)
 //delete user
 router.delete('/:id',verifyUser,deleteUser)
 //get single user
-router.get('/:id',verifyUser,getSingleUser)
+router.get('/getuser/:id',verifyUser,getSingleUser)
 //get all users
 router.get('/',verifyAdmin,getAllUser); 
 export default router;

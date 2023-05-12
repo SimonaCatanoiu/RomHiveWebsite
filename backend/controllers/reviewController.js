@@ -6,7 +6,6 @@ export const createReview = async(req,res)=> {
     const newReview = new Review({... req.body})
     try{
         const savedReview = await newReview.save()
-        
         //update the offer with the new review
         await Offer.findByIdAndUpdate(offerId,{
             $push: {

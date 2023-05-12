@@ -9,6 +9,7 @@
         "price":400,
         "featured":true,
         "maxGroupSize": 12,
+	"noPackets":4,
         "desc": "This skip-the-line, small-group tour lets you bypass the lines for the most important attractions in Barcelona, so you spend less time waiting and more experiencing the Catalan architect’s genius. Plus, rather than explore independently—and having to arrange travel between the two sites—you get a guide for extra insight and convenient transport laid on. The accomodation is not included in this price.",
         "reviews":[]
     },
@@ -22,6 +23,7 @@
         "price":650,
         "featured":false,
         "maxGroupSize": 4,
+	"noPackets":4,
         "desc": "Experience the vibrant culture and rich history of Madrid with a weekend city break! Discover world-famous museums like the Prado and Reina Sofia, explore the bustling streets of the city center, and indulge in delicious Spanish cuisine.Stay in the heart of the action at one of Madrid's many hotels, from boutique options to luxury accommodations. Take advantage of the city's excellent public transportation to visit landmarks like the Royal Palace, Puerta del Sol, and Retiro Park.",
         "reviews":[]
     },
@@ -35,7 +37,8 @@
         "price":180,
         "featured":false,
         "maxGroupSize": 2,
-        "desc": "this is the description",
+	"noPackets":4,
+        "desc": "A Paris Louvre guided tour without waiting in line is an excellent way to experience one of the world's most renowned museums. The Louvre is home to an impressive collection of over 35,000 works of art spanning many different eras and styles, including the famous Mona Lisa painting.",
         "reviews":[]
     },
     {
@@ -48,6 +51,7 @@
         "price":200,
         "featured":true,
         "maxGroupSize": 8,
+	"noPackets":4,
         "desc": "Hotel Giolli offers large rooms with Wi-Fi internet access, friendly service and a 24-hour reception. It is located on Via Nazionale, a short walk from Rome's Termini Station.Both the Rome Opera House and the Trevi Fountain are within walking distance of the Giolli. Repubblica Metro Station is 200 meters away.The rooms of Hotel Giolli are quiet and equipped with air conditioning, satellite TV, hairdryer and minibar. The floors are eco-friendly wooden parquet, and some rooms have balconies overlooking the main street.Breakfast is served in the panoramic dining room. The hotel also has a bar and a comfortable lounge. Staff can arrange airport transfers and book museum tickets.",
         "reviews":[]
     },
@@ -61,6 +65,7 @@
         "price":100,
         "featured":false,
         "maxGroupSize":6,
+	"noPackets":4,
         "desc": "There is no more memorable way to explore Venice than by traditional gondola, but most standard rides last just 30 minutes. This exclusive 45-minute experience gives you enough time to glide past famous sights like the Rialto Bridge and Grand Canal and also float through quiet, lesser-known neighborhoods. Set off from near St. Mark’s Square with a true “gondoliere” and savor Venice from its historic canals" ,
         "reviews":[]
     },
@@ -74,6 +79,7 @@
         "price":50,
         "featured":true,
         "maxGroupSize": 12,
+	"noPackets":4,
         "desc": "Maximize your time in Frankfurt, and see the city on a guided tour by foot. Visiting the places where the tour buses can't reach, you'll get up close to the standout landmarks, find the most impressive photo points, and hear Frankfurt's history told through engaging commentary. The Old Opera House, Roemerberg, and Frankfurt Cathedral are among the highlights.",
         "reviews":[]
     },
@@ -87,6 +93,7 @@
         "price":50,
         "featured":true,
         "maxGroupSize": 20,
+	"noPackets":4,
         "desc": "Explore Transylvania and skip the lines at Bran Castle with a guide on this full-day tour from Bucharest. Hotel pickup and drop-off in an air-conditioned minivan make your trip easy and comfortable. Visit Peles Castle and explore the museum’s collection. Stop at Bran Castle and take a tour of Brasov City. View Brasov’s medieval fortress and Weaver’s Bastion before returning to Bucharest.",
         "reviews":[]
     },
@@ -100,6 +107,7 @@
         "price":130,
         "featured":true,
         "maxGroupSize": 4,
+	"noPackets":4,
         "desc": "See London with your own private driver who shows you around the city in a classic Mini Cooper. During your two-hour tour, your driver-guide shows you both top attractions including St Paul's Cathedral, Houses of Parliament (aka Palace of Westminster) and Big Ben, and lesser-known favorites such as Borough Market — the oldest food market in London. Get an insider’s perspective on the best places to go in London and enjoy the fun of seeing the city in your own private car.",
         "reviews":[]
     },
@@ -113,6 +121,7 @@
         "price":50,
         "featured":false,
         "maxGroupSize": 2,
+	"noPackets":4,
         "desc": "It’s always hard to find the best places to eat in a new city—and samples are impossible to negotiate without a local guide. Discover Poland’s rich cuisine and Warsaw’s most authentic eateries on an early evening tasting tour with a guide. Try may different types of food and drink at local restaurants: enough for a full dinner.",
         "reviews":[]
     },
@@ -126,6 +135,7 @@
         "price":70,
         "featured":true,
         "maxGroupSize": 12,
+	"noPackets":4,
         "desc": "The sea is indisputably the best place from which to observe Cabo Girao, some of the world's tallest sea cliffs. Bag yourself the best views on this whale-watching cruise from Funchal, perfect for nature lovers. On a catamaran, find a seat on the deck and enjoy the scenery while scanning the horizon for dolphins and whales. Plus, a range of departure times allows this tour to slot seamlessly into your itinerary.",
         "reviews":[]
     },

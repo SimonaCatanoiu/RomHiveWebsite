@@ -5,7 +5,6 @@ const offerSchema = new mongoose.Schema(
         title: {
             type:String,
             required: true,
-            unique: true,
         },
         city: {
             type:String,
@@ -32,6 +31,10 @@ const offerSchema = new mongoose.Schema(
             required: true,
         },
         maxGroupSize: {
+            type: Number,
+            required:true,
+        },
+        noPackets: {
             type: Number,
             required:true,
         },

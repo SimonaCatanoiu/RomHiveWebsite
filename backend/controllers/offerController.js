@@ -4,6 +4,7 @@ import Offer from '../models/Offer.js'
 export const createOffer = async (req,res) =>
 {
     const newOffer = new Offer(req.body)
+    console.log(newOffer)
     try {
         const savedOffer = await newOffer.save()
 

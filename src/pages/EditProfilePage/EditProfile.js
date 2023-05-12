@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useContext,useEffect} from 'react'
 import './EditProfile.css'
 import { Col,Row, Container } from 'react-bootstrap';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
@@ -8,23 +8,118 @@ import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
 import { Link } from 'react-router-dom';
 
-export default function EditProfile() {
+import {BASE_URL} from '../../utils/config.js'
+import {AuthContext} from './../../context/AuthContext.js'
 
-  const [file, setFile] = useState(null);
-  const [filePath, setFilePath] = useState("../../../images/avatar.jpg");
+export default function EditProfile() {
+  const {user} = useContext(AuthContext)
   
+  //get data for user
+  const [userData,setUserdata]=useState(null)
+  const [errorFetch,setError]=useState(null)
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    fetch(`${BASE_URL}/users/getuser/${user._id}`, { credentials: 'include' })
+      .then(response => response.json())
+      .then(userData => 
+        {
+          setLoading(false);
+          setUserdata(userData)
+        })
+      .catch(error => {
+        console.error(error);
+        setError(error);
+        setLoading(false);
+      });
+  }, [user._id]);
+
+  
+  const [file, setFile] = useState(null);
+  const [filePath, setFilePath] = useState(userData && userData.photo ? userData.photo : "../../../images/avatar.jpg");
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [firstname, setFirstName] = useState('');
+  const [lastname, setLastName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [birthdate, setBirthdate] = useState('');
+  const [password, setPassword] = useState('');
+  const [new_password, setNew_Password] = useState('');
+
+
+  useEffect(() => {
+    if (userData?.data?.username) {
+      setUsername(userData.data.username);
+    }
+    if (userData?.data?.email) {
+      setEmail(userData.data.email);
+    }
+    if (userData?.data?.firstname) {
+      setFirstName(userData.data.firstname);
+    }
+    if (userData?.data?.lastname) {
+      setLastName(userData.data.lastname);
+    }
+    if (userData?.data?.phone) {
+      setPhone(userData.data.phone);
+    }
+    if (userData?.data?.date_of_birth) {
+      const date = new Date(userData.data.date_of_birth);
+      const formattedDate = date.toISOString().split('T')[0]; // "2023-05-10"
+      setBirthdate(formattedDate);
+    }
+  }, [userData]);
+
   const handleFileSelected = (event) => {
     const selectedFile = event.target.files[0];
     if (selectedFile) {
       setFile(selectedFile);
       setFilePath(URL.createObjectURL(selectedFile));
+    } else if (userData.photo) {
+      setFilePath(userData.photo);
     } else {
-      setFile(null);
       setFilePath("../../../images/avatar.jpg");
     }
   }
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
+    const formData = new FormData();
+    formData.append('username', username);
+    formData.append('email', email);
+    formData.append('firstname', firstname);
+    formData.append('lastname', lastname);
+    formData.append('phone', phone);
+    formData.append('birthdate', birthdate);
+    formData.append('password', password);
+    formData.append('new_password', new_password);
+    
+    if (file) {
+      formData.append('profilePicture', file);
+    }
+   //console.log(...formData) // shortest script solution
+    try {
+      const response = await fetch(`${BASE_URL}/users/updateUser/${user._id}`, {
+        method: 'POST',
+        body: formData,
+        credentials: 'include',
+      });
+      await response.json();
+      window.history.replaceState(null, null, window.location.href);
+      window.location.reload();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  
+  if (loading) {
+    return <div><br/><br/><br/><br/><h4>Loading...</h4></div>;
+  }
+ if (errorFetch) {
+    return <div><br/><br/><br/><br/><p>Error: {errorFetch.message}</p></div>;
+  }
   return (
     <>
       <br/>
@@ -55,7 +150,7 @@ export default function EditProfile() {
               <img src={filePath} alt="NotFound" className="userEditShowImg"/>
               <div className="userEditShowTopTitle">
                 <span className="userEditShowUsername">
-                  Maria Popescu
+                {userData && userData.data && `${userData.data.firstname} ${userData.data.lastname}`}
                 </span>
                 <span className="userEditShowUserTitle">
                   Regular User
@@ -67,24 +162,24 @@ export default function EditProfile() {
               
               <div className="userEditShowInfo">
                 <PermIdentityIcon className="userShowIcon"/>
-                <span className="userShowInfoTitle">maria_popescu</span>
+                <span className="userShowInfoTitle">{userData && userData.data && userData.data.username}</span>
               </div>
 
               <div className="userEditShowInfo">
                 <CalendarTodayIcon className="userShowIcon"/>
-                <span className="userShowInfoTitle">10.12.1999</span>
+                <span className="userShowInfoTitle">{birthdate} </span>
               </div>
 
               <span className="userEditShowTitle">Contact Details</span>
 
               <div className="userEditShowInfo">
                 <PhoneAndroidIcon className="userEditShowIcon"/>
-                <span className="userEditShowInfoTitle">+40770688389</span>
+                <span className="userEditShowInfoTitle">{userData && userData.data && userData.data.phone}</span>
               </div>
 
               <div className="userEditShowInfo">
                 <MailOutlineIcon className="userEditShowIcon"/>
-                <span className="userEditShowInfoTitle">mariapopescu@gmail.com</span>
+                <span className="userEditShowInfoTitle">{userData && userData.data && userData.data.email}</span>
               </div>
 
             </div>
@@ -98,27 +193,27 @@ export default function EditProfile() {
                 
                 <div className="userEditUpdateItem">
                   <label>Username</label>
-                  <input type="text" placeholder="maria_popescu" className="userEditUpdateInput"></input>
+                  <input type="text" value={username} onChange={event => setUsername(event.target.value)} className="userEditUpdateInput"></input>
                 </div>
 
                 <div className="userEditUpdateItem">
                   <label>First Name</label>
-                  <input type="text" placeholder="Maria" className="userEditUpdateInput"></input>
+                  <input type="text" value={firstname} onChange={event => setFirstName(event.target.value)} className="userEditUpdateInput"></input>
                 </div>
 
                 <div className="userEditUpdateItem">
                   <label>Last Name</label>
-                  <input type="text" placeholder="Popescu" className="userEditUpdateInput"></input>
+                  <input type="text" value={lastname} onChange={event => setLastName(event.target.value)} className="userEditUpdateInput"></input>
                 </div>
 
                 <div className="userEditUpdateItem">
                   <label>Email</label>
-                  <input type="text" placeholder="mariapopescu@gmail.com" className="userEditUpdateInput"></input>
+                  <input type="text" value={email} onChange={event => setEmail(event.target.value)} className="userEditUpdateInput"></input>
                 </div>
 
                 <div className="userEditUpdateItem">
                   <label>Phone</label>
-                  <input type="text" placeholder="+40770688389" className="userEditUpdateInput"></input>
+                  <input type="text" value={phone} onChange={event => setPhone(event.target.value)} className="userEditUpdateInput"></input>
                 </div>
 
               </div>
@@ -128,17 +223,17 @@ export default function EditProfile() {
 
                 <div className="userEditUpdateItem">
                     <label>Date of Birth</label>
-                    <input type="date" placeholder="" className="userEditUpdateInput"></input>
+                    <input type="date" value={birthdate} onChange={event => setBirthdate(event.target.value)} className="userEditUpdateInput"></input>
                   </div>
 
                   <div className="userEditUpdateItem">
                     <label>New Password</label>
-                    <input type="password" placeholder="Enter Password" className="userEditUpdateInput"></input>
+                    <input type="password" value={password} onChange={event => setPassword(event.target.value)} placeholder="Enter Password" className="userEditUpdateInput"></input>
                   </div>
 
                   <div className="userEditUpdateItem">
                     <label>Repeat Password</label>
-                    <input type="password" placeholder="Cofirm Password" className="userEditUpdateInput"></input>
+                    <input type="password" value={new_password} onChange={event => setNew_Password(event.target.value)} placeholder="Cofirm Password" className="userEditUpdateInput"></input>
                   </div>
 
                   <div className="userEditUpdateItem">
@@ -147,11 +242,10 @@ export default function EditProfile() {
                     <DriveFolderUploadIcon/>Upload
                     </label>
                     <input id="file-upload" type="file" onChange={handleFileSelected}/>
-                    <label>{filePath}</label>
                   </div>
                 </div>
 
-                <button className="userEditUpdateButton">Update</button>
+                <button className="userEditUpdateButton" onClick={handleSubmit}>Update</button>
               </div>
             </form>
           </div>

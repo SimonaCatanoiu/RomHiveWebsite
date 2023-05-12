@@ -1,37 +1,73 @@
-import React,{useState} from 'react'
+import React,{useState, useContext} from 'react'
 import './Booking.css'
 import StarIcon from '@mui/icons-material/Star';
 import { Button, Form, FormGroup } from 'react-bootstrap';
 import { MDBListGroup, MDBListGroupItem } from 'mdb-react-ui-kit';
 import CloseIcon from '@mui/icons-material/Close';
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
+import {AuthContext} from '../../../context/AuthContext.js'
+import {BASE_URL} from "../../../utils/config.js"
 
 const Booking = ({offer,avgRating}) =>
 {
-    const {price,reviews} = offer;
+    const {price,reviews,title} = offer;
     const navigate = useNavigate();
 
-    const [credentials,setCredentials] = useState({
-        userId: '01',
-        userEmail:'email',
-        fullName:'',
-        phone:'',
-        guestSize:1,
-        bookAt:''
+    const {user} = useContext(AuthContext)
+
+    const [booking,setBooking] = useState({
+        userId: user && user._id,
+        userEmail:user && user.email,
+        offerName: title,
+        fullName:"",
+        phone:"",
+        guestSize:"",
+        bookAt:"",
+        offerId: useParams().id
     })
 
     const handleChange = e =>
     {
-        setCredentials(prev => ({
+        setBooking(prev => ({
             ...prev, [e.target.id]:e.target.value}))
     };
 
     const serviceFee = 10;
-    const totalAmount = Number(price)*Number(credentials.guestSize) + Number(serviceFee);
+    const totalAmount = Number(price)*Number(booking.guestSize) + Number(serviceFee);
 
-    const handleClick = e=>{
+    const handleClick = async e=>{
+        console.log(booking)
         e.preventDefault();
-        navigate("/OrderCompleted");
+        try{
+            if(!user || user===undefined || user===null)
+            {
+              return alert('Please sign in');  
+            }
+
+            const res = await fetch(`${BASE_URL}/booking`,
+            {
+                method:'post',
+                headers:{
+                    'content-type':'application/json'
+                },
+                credentials:'include',
+                body:JSON.stringify(booking)
+            })
+
+            const result = await res.json()
+
+            if(!res.ok)
+            {
+                return alert(result.message)
+            }
+            navigate("/OrderCompleted");
+        }
+        catch(err)
+        {
+            alert(err.message )
+        }
+
+        
     }
 
     return <div className="booking">

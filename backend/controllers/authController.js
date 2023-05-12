@@ -9,13 +9,15 @@ export const register = async(req,res) =>
     const salt = bcrypt.genSaltSync(10)
     const hash = bcrypt.hashSync(req.body.password,salt)
     try{
+        const randomNum = Math.floor(Math.random() * 100) + 1;
         const newUser = new User(
             {
                 firstname: req.body.firstname,
                 lastname: req.body.lastname,
                 email: req.body.email,
                 phone: req.body.phone,
-                password: hash
+                password: hash,
+                username: `${req.body.firstname}.${req.body.lastname}${randomNum}`
             }
         )
 
@@ -25,7 +27,7 @@ export const register = async(req,res) =>
     }
     catch(err)
     {
-        res.status(500).json({success:false,message:"Failed to create. Try again"})
+        res.status(500).json({success:false,message:"The email is already in use. Try again"})
     };
 }
 
@@ -81,5 +83,31 @@ export const login = async(req,res) =>
         res.status(500).json({
             success:false,message:'Failed to login'
         })
+    };
+}
+
+//user change password
+export const changePassword = async(req,res) => 
+{
+    //hashing the password 
+    const salt = bcrypt.genSaltSync(10)
+    const hash = bcrypt.hashSync(req.body.password,salt)
+    const { email, password } = req.body;
+    try{
+        const user = await User.findOne({email});
+        
+        if (!user) {
+            return res.status(404).json({ success: false, message: "Email not found in database!" });
+          }
+
+        user.password=hash;
+
+        await user.save();
+
+        res.status(200).json({success:true,message:"Succefully updated password"}) 
+    }
+    catch(err)
+    {
+        res.status(500).json({success:false,message:"Internal Server Error"})
     };
 }

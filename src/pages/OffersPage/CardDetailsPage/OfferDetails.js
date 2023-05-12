@@ -20,6 +20,7 @@ import Popup from "./../../../components/Popup/Popup.js";
 const OfferDetails = () => {
     const { id } = useParams()
     const reviewMsgRef = useRef('')
+    const [reviewMsg, setReviewMsg] = useState('');
     const [tourRating,setTourRating]=useState(null);
     const {user} = useContext(AuthContext)
     const [openPopup,setOpenPopup] = useState(false)
@@ -94,6 +95,9 @@ const OfferDetails = () => {
                 return alert(result.message);
            }
            setOpenPopup(true);
+           handleRatingClick(0);
+           setTourRating(0);
+           setReviewMsg('');
         }
         catch(err)
         {
@@ -166,7 +170,7 @@ const OfferDetails = () => {
                                     </div>
 
                                     <div className="review__input">
-                                        <input type="text" ref={reviewMsgRef} placeholder="share your thoughts" required/>
+                                        <input type="text" ref={reviewMsgRef} onChange={(e) => setReviewMsg(e.target.value)} value={reviewMsg} placeholder="share your thoughts" required/>
                                         <button className="btn primary__btn text-white" type="submit">
                                             Submit
                                         </button>
