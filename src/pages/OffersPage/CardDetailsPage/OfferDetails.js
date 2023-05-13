@@ -10,12 +10,34 @@ import GroupIcon from '@mui/icons-material/Group';
 import TimeToLeaveIcon from '@mui/icons-material/TimeToLeave';
 import Footer from "../../../components/Footer/Footer.js"
 import { MDBListGroup } from "mdb-react-ui-kit";
-import avatar from "../../../components/assets/avatar.jpg"
 import Booking from "./Booking";
 import {BASE_URL} from './../../../utils/config.js'
 import {AuthContext} from './../../../context/AuthContext.js'
 import SuccessPopUp from './../../../components/Popup/SuccessPopUp.js'
 import Popup from "./../../../components/Popup/Popup.js";
+
+async function getUserPicture(offer) {
+    const usersProfilePictures = await Promise.all(
+    offer.data.reviews.map(async (review) => {
+        if (review.userId) {
+          const getUserPicturePath = await fetch(`${BASE_URL}/users/getuserPicture/${review.userId}`);
+          const response = await getUserPicturePath.json();
+          if (response.success) {
+            const imagename = response.data.photo.split('/').pop();
+            const response2 = await fetch(`${BASE_URL}/images/img/${imagename}`);
+            const data = await response2.blob();
+            const imageUrl = URL.createObjectURL(data);
+            const profilePicturePath = imageUrl;
+            return { profilePicturePath, reviewId: review._id };
+          }
+        }
+        const profilePicturePath = "/images/avatar.jpg";
+        return { profilePicturePath, reviewId: review._id };
+      })
+    );
+    
+    return usersProfilePictures;
+  }
 
 const OfferDetails = () => {
     const { id } = useParams()
@@ -24,19 +46,33 @@ const OfferDetails = () => {
     const [tourRating,setTourRating]=useState(null);
     const {user} = useContext(AuthContext)
     const [openPopup,setOpenPopup] = useState(false)
-
+    const [users, setUsers] = useState({});
     const [selectedRating, setSelectedRating] = useState(0);
     const [offer,setData]=useState(null)
     const [errorFetch,setError]=useState(null)
+    const [loading, setLoading] = useState(false);
+
     useEffect(() => {
+        setLoading(true);
         fetch(`${BASE_URL}/offers/${id}`)
-          .then(response => response.json())
-          .then(data => setData(data))
-          .catch(error => {
+        .then(response => response.json())
+        .then(data => {
+            setData(data);
+            setLoading(false);
+        })
+        .catch(error => {
             console.error(error);
             setError(error);
-          });
-      }, [id]);
+        });
+    }, [id]);
+
+    useEffect(() => {
+        if (!offer || !offer.data.reviews) {
+          return;
+        }
+        getUserPicture(offer).then((data) => setUsers(data));
+      }, [offer]);
+
     if(errorFetch)
     { 
         return <div><br/><br/><br/><br/><p>Server Error</p></div>
@@ -46,7 +82,6 @@ const OfferDetails = () => {
     }
 
     const { photo, title, desc, price, reviews, city, distance, maxGroupSize, address } = offer.data
-
     const totalRating = reviews?.reduce((acc, item) =>
         acc + item.rating, 0)
     const avgRating = totalRating === 0
@@ -65,7 +100,7 @@ const OfferDetails = () => {
     {
         e.preventDefault()
         const reviewText = reviewMsgRef.current.value;
-
+        
         try{
 
             if(!user || user===undefined || user===null)
@@ -77,7 +112,8 @@ const OfferDetails = () => {
             const toSend = {
                 username:user?.username,
                 reviewText:reviewText,
-                rating:tourRating
+                rating:tourRating,
+                userId:user?._id
             }
 
             const res = await fetch(`${BASE_URL}/review/${id}`,{
@@ -178,34 +214,28 @@ const OfferDetails = () => {
                                 </Form>
                                 <MDBListGroup className="user__reviews">
                                     {
-                                        reviews?.map(review =>
-                                        (
-                                            <div className="review__item">
-                                                <img src={avatar} alt="" />
-
-                                                <div className="w-100">
+                                        reviews?.map(review => {   
+                                            const data = Object.values(users).find(user => user.reviewId === review._id);                                   
+                                            const profilePicturePath = data ? data.profilePicturePath : "/images/avatar.jpg";
+                                            console.log(profilePicturePath)
+                                            return (
+                                                <div className="review__item">
+                                                <img src={profilePicturePath} alt="NotFound" onError={() => console.log("Error loading image")} />
+                                                    <div className="w-100">
                                                     <div className="d-flex align-items-center justify-content-between">
                                                         <div>
-                                                            <h5>
-                                                                {review.username}
-                                                            </h5>
-                                                            <p>
-                                                                {
-                                                                    new Date(review.createdAt).toLocaleDateString("en-US",options)
-                                                                }
-                                                            </p>
+                                                        <h5>{review.username}</h5>
+                                                        <p>{new Date(review.createdAt).toLocaleDateString("en-US",options)}</p>
                                                         </div>
                                                         <span className="d-flex align-items-center">
                                                         {review.rating}<StarIcon sx={{ fontSize: "1.2rem" }}/>
                                                         </span>
                                                     </div>
-
-                                                    <h6>
-                                                        {review.reviewText}
-                                                    </h6>
+                                                    <h6>{review.reviewText}</h6>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        )
+                                                );
+                                        }
                                         )
                                     }
                                 </MDBListGroup>

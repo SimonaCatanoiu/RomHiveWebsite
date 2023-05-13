@@ -6,7 +6,7 @@ import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
-import { Link } from 'react-router-dom';
+import Footer from "../../components/Footer/Footer.js"
 
 import {BASE_URL} from '../../utils/config.js'
 import {AuthContext} from './../../context/AuthContext.js'
@@ -37,7 +37,8 @@ export default function EditProfile() {
 
   
   const [file, setFile] = useState(null);
-  const [filePath, setFilePath] = useState(userData && userData.photo ? userData.photo : "../../../images/avatar.jpg");
+  const [filePath, setFilePath] = useState("../../../images/avatar.jpg");
+  const [filePathShow, setFileLink] = useState("../../../images/avatar.jpg");
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [firstname, setFirstName] = useState('');
@@ -46,7 +47,6 @@ export default function EditProfile() {
   const [birthdate, setBirthdate] = useState('');
   const [password, setPassword] = useState('');
   const [new_password, setNew_Password] = useState('');
-
 
   useEffect(() => {
     if (userData?.data?.username) {
@@ -69,17 +69,39 @@ export default function EditProfile() {
       const formattedDate = date.toISOString().split('T')[0]; // "2023-05-10"
       setBirthdate(formattedDate);
     }
+    if (userData?.data?.photo) {
+      setFilePath(userData.data.photo);
+    }
   }, [userData]);
+
+  useEffect(() => {
+    async function fetchImage() {
+      if (filePath !== "../../../images/avatar.jpg") {
+        try {
+          const imagename = filePath.split('/').pop();
+          const response = await fetch(`${BASE_URL}/images/img/${imagename}`);
+          const data = await response.blob();
+          const imageUrl = URL.createObjectURL(data);
+          setFileLink(imageUrl);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    }
+    fetchImage();
+  }, [filePath]);
+
+
 
   const handleFileSelected = (event) => {
     const selectedFile = event.target.files[0];
     if (selectedFile) {
       setFile(selectedFile);
-      setFilePath(URL.createObjectURL(selectedFile));
+      setFileLink(URL.createObjectURL(selectedFile));
     } else if (userData.photo) {
-      setFilePath(userData.photo);
+      setFileLink(userData.photo);
     } else {
-      setFilePath("../../../images/avatar.jpg");
+      setFileLink("../../../images/avatar.jpg");
     }
   }
 
@@ -99,7 +121,7 @@ export default function EditProfile() {
     if (file) {
       formData.append('profilePicture', file);
     }
-   //console.log(...formData) // shortest script solution
+   
     try {
       const response = await fetch(`${BASE_URL}/users/updateUser/${user._id}`, {
         method: 'POST',
@@ -134,9 +156,6 @@ export default function EditProfile() {
                 <h1 className='PageTitle'>Edit Profile</h1>
               </Col>
               <Col lg='2' className='d-flex justify-content-end'>
-                <Link style={{textDecoration: 'none'}} to="/EditProfile">
-                  <button className="userDeleteButton">Delete Account</button>
-                </Link>
               </Col>
             </Row>
           </Container>
@@ -147,7 +166,7 @@ export default function EditProfile() {
           <Col lg="3" className="mb-2">
           <div className="userEditShow">
             <div className="userEditShowTop">
-              <img src={filePath} alt="NotFound" className="userEditShowImg"/>
+              <img src={filePathShow} alt="NotFound" className="userEditShowImg"/>
               <div className="userEditShowTopTitle">
                 <span className="userEditShowUsername">
                 {userData && userData.data && `${userData.data.firstname} ${userData.data.lastname}`}
@@ -255,6 +274,7 @@ export default function EditProfile() {
         </div>
       </div>
     </div>
+    <Footer></Footer>
     </>
   )
 }

@@ -38,6 +38,9 @@ const Navbar =() => {
                     <StyledLink to='/EditProfile' onClick={() => setClicked(false)}>
                     <a className='nav_links' >Account</a> 
                     </StyledLink>
+                    <StyledLink to='/Booked' onClick={() => setClicked(false)}>
+                    <a className='nav_links' >Booked</a> 
+                    </StyledLink>
                 </li>
             ) : null}
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 import { MDBFooter, MDBContainer, MDBRow, MDBCol, MDBIcon } from 'mdb-react-ui-kit';
 import "./Footer.css"
 import FacebookIcon from '@mui/icons-material/Facebook';
@@ -11,6 +11,7 @@ import Popup from '../Popup/Popup';
 import AboutUs from './PopUps/AboutUs'
 import Contact from './PopUps/Contact'
 import Newsletter from './PopUps/Newsletter'
+import {AuthContext} from './../../context/AuthContext.js' 
 
 const StyledLink = styled(Link)`
     color:#d2386c;
@@ -21,6 +22,7 @@ export default function Footer() {
   const [openPopupAbout,setOpenPopupA] = useState(false)
   const [openPopupContact,setOpenPopupC] = useState(false)
   const [openPopupNewslatter,setOpenPopupN] = useState(false)
+  const {user,dispatch} = useContext(AuthContext)
 
   return (
     <MDBFooter className='text-center text-lg-start mdb-footer'>
@@ -71,20 +73,25 @@ export default function Footer() {
                 </a>
                 </StyledLink>
               </p>
-              <p>
-              <StyledLink to='/signin'>
-                <a href='#' className='text-reset'>
-                  Sign In
-                </a>
-                </StyledLink>
-              </p>
-              <p>
-              <StyledLink to='/signUp'>
-                <a href='#' className='text-reset'>
-                  Sign Up
-                </a>
-                </StyledLink>
-              </p>
+              {user ? (<></>) 
+              : (
+                  <>
+                  <p>
+                    <StyledLink to='/signin'>
+                      <a href='#' className='text-reset'>
+                        Sign In
+                      </a>
+                    </StyledLink>
+                  </p>
+                  <p>
+                    <StyledLink to='/signUp'>
+                      <a href='#' className='text-reset'>
+                        Sign Up
+                      </a>
+                    </StyledLink>
+                  </p>
+                  </>
+                )}
             </MDBCol>
 
           </MDBRow>

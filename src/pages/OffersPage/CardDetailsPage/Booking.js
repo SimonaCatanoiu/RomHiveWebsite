@@ -23,17 +23,25 @@ const Booking = ({offer,avgRating}) =>
         phone:"",
         guestSize:"",
         bookAt:"",
+        price:"",
         offerId: useParams().id
     })
 
-    const handleChange = e =>
-    {
+    const handleChange = e => {
         setBooking(prev => ({
-            ...prev, [e.target.id]:e.target.value}))
-    };
+          ...prev,
+          [e.target.id]: e.target.value,
+          price:
+            e.target.id === "guestSize"
+              ? (Number(price) * Number(e.target.value) + Number(serviceFee)).toFixed(2)
+              : prev.price
+        }));
+      };
 
     const serviceFee = 10;
     const totalAmount = Number(price)*Number(booking.guestSize) + Number(serviceFee);
+
+
 
     const handleClick = async e=>{
         console.log(booking)
