@@ -1,10 +1,8 @@
 import React, {useState,useContext,useEffect} from 'react'
-import Footer from "../../components/Footer/Footer.js"
 import "./Booking.css"
 import {AuthContext} from '../../context/AuthContext.js'
 import {BASE_URL} from "../../utils/config.js"
 import { DataGrid } from '@mui/x-data-grid';
-import { Link } from 'react-router-dom';
 
 
 export default function Booking() {
@@ -13,17 +11,19 @@ export default function Booking() {
   //fetch data from database
   const [bookings, setBookings] = useState([]);
   useEffect(() => {
-    const fetchBookings = async () => {
-      try {
-        const response = await fetch(`${BASE_URL}/booking/all/${user._id}`, { credentials: 'include' });
-        const server_data = await response.json();
-        setBookings(server_data.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchBookings();
-  }, [user._id]);
+    if (user?._id) {
+      const fetchBookings = async () => {
+        try {
+          const response = await fetch(`${BASE_URL}/booking/all/${user._id}`, { credentials: 'include' });
+          const server_data = await response.json();
+          setBookings(server_data.data);
+        } catch (error) {
+          console.error(error);
+        }
+      };
+      fetchBookings();
+    }
+  }, [user?._id]);
   
   
   const data = bookings.map((booking) => {

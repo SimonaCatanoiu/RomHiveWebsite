@@ -2,11 +2,12 @@ import React from "react";
 import "./Admin.css"
 import Sidebar from "../../components/Sidebar/Sidebar";
 import MainPage from "./MainPage/MainPage";
-import { Col, Container, Row } from "react-bootstrap";
+import NavbarAdmin from "../../components/NavbarAdmin/NavbarAdmin.js"
 
 const Admin = () => 
 {
-  return <div>
+  return <>
+    <NavbarAdmin></NavbarAdmin>
     <br></br>
     <br></br>
     <br></br>
@@ -14,7 +15,7 @@ const Admin = () =>
         <Sidebar/>
         <MainPage/>
     </div>
-  </div>
+    </>
 }
 
 export default Admin;

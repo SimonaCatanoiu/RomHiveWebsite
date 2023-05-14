@@ -45,7 +45,25 @@ const SignIn = () =>
       }
 
      dispatch({type:'LOGIN_SUCCESS',payload:result.data})
-     navigate('/')
+     if (result.role === 'admin') {
+      navigate('/adminPage');
+    } else {
+      //add log for user login so we can monitor traffic
+      const currentDate = new Date(); // Get current date
+      const user_email = result.data.email;
+      const addLogRes = await fetch(`${BASE_URL}/users/addLog`, {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials:'include',
+        body: JSON.stringify({ user_email, date: currentDate })
+      });
+      if (!addLogRes.ok) {
+        console.error('Failed to add user log');
+      }
+      navigate('/');
+    }
     }
     catch(err)
     {

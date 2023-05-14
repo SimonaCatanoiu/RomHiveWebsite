@@ -9,7 +9,9 @@ import authRoute from './routes/auth.js'
 import reviewRoute from './routes/reviews.js'
 import bookingRoute from './routes/bookings.js'
 import imagesRoute from './routes/images.js'
+import adminStatisticsRoute from './routes/adminstatistics.js'
 import bodyParser from 'body-parser'
+
 
 dotenv.config();
 const app = express();
@@ -30,6 +32,7 @@ app.use('/api/v1/auth',authRoute);
 app.use('/api/v1/review',reviewRoute);
 app.use('/api/v1/booking',bookingRoute);
 app.use('/api/v1/images',imagesRoute);
+app.use('/api/v1/statistics',adminStatisticsRoute);
 
 //conectare la baza de date
 mongoose.set("strictQuery",false);

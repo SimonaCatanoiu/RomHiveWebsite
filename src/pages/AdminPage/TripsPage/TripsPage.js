@@ -6,6 +6,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import {Tripsrows} from './TripsData'
 import { Link } from 'react-router-dom';
+import NavbarAdmin from '../../../components/NavbarAdmin/NavbarAdmin';
 
 
 export default function TripsPage() {
@@ -97,6 +98,7 @@ export default function TripsPage() {
 
   return (
     <div>
+    <NavbarAdmin></NavbarAdmin>
     <br></br>
     <br></br>
     <br></br>

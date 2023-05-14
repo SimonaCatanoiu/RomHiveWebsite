@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './App.css';
-import Navbar from './components/Navbar/Navbar';
+import Navbar from './components/Navbar/Navbar.js';
 import Home from './pages/HomePage/Home.js';
 import Offers from './pages/OffersPage/Offers.js';
 import Reviews from './pages/ReviewsPage/Reviews.js';
@@ -38,10 +38,13 @@ function App() {
         <Route path='/offers/search' element={<SearchResultList/>}></Route>
         <Route exact path='/offers/:id' element={<OfferDetails/>}></Route>
         <Route path='/reviews' element={<Reviews/>}></Route>
-        <Route path='/adminPage' element={<Admin/>}></Route>
         <Route path='/SignIn' element={<SignIn/>}></Route>
         <Route path='/SignUp' element={<SignUp/>}></Route>
         <Route path='/OrderCompleted' element={<OrderCompleted/>}></Route>
+        <Route path='/EditProfile' element={<EditProfile/>}></Route>
+        <Route path='/Booked' element={<Booked/>}></Route>
+        
+        <Route path='/adminPage' element={<Admin/>}></Route>
         <Route path='/adminPage/Users' element={<Users/>}></Route>
         <Route path='/adminPage/Users/:id' element={<NewUser/>}></Route>
         <Route path='/adminPage/Trips' element={<Trips/>}></Route>
@@ -50,8 +53,7 @@ function App() {
         <Route path='/adminPage/Transactions' element={<Transactions/>}></Route>
         <Route path='/adminPage/Settings' element={<Settings/>}></Route>
         <Route path='/adminPage/AddUser' element={<AddUser/>}></Route>
-        <Route path='/EditProfile' element={<EditProfile/>}></Route>
-        <Route path='/Booked' element={<Booked/>}></Route>
+
       </Routes>
     </div>
   );

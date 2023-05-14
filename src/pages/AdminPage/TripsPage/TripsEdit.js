@@ -7,6 +7,7 @@ import "../Admin.css"
 import "./TripsEdit.css"
 import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
 import {TripData} from "./TripsData.js"
+import NavbarAdmin from '../../../components/NavbarAdmin/NavbarAdmin';
 
 export default function TripsEdit() {
   const { id } = useParams();
@@ -31,6 +32,7 @@ export default function TripsEdit() {
 
   return (
     <div>
+    <NavbarAdmin></NavbarAdmin>
     <br></br>
     <br></br>
     <br></br>

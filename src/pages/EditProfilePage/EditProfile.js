@@ -13,27 +13,28 @@ import {AuthContext} from './../../context/AuthContext.js'
 
 export default function EditProfile() {
   const {user} = useContext(AuthContext)
-  
+
   //get data for user
   const [userData,setUserdata]=useState(null)
   const [errorFetch,setError]=useState(null)
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
-    fetch(`${BASE_URL}/users/getuser/${user._id}`, { credentials: 'include' })
-      .then(response => response.json())
-      .then(userData => 
-        {
+    if (user && user._id) {
+      setLoading(true);
+      fetch(`${BASE_URL}/users/getuser/${user._id}`, { credentials: 'include' })
+        .then(response => response.json())
+        .then(userData => {
           setLoading(false);
-          setUserdata(userData)
+          setUserdata(userData);
         })
-      .catch(error => {
-        console.error(error);
-        setError(error);
-        setLoading(false);
-      });
-  }, [user._id]);
+        .catch(error => {
+          console.error(error);
+          setError(error);
+          setLoading(false);
+        });
+    }
+  }, [user]);
 
   
   const [file, setFile] = useState(null);

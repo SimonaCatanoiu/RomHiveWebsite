@@ -3,10 +3,12 @@ import "../Admin.css"
 import "./AddUser.css"
 import Sidebar from "../../../components/Sidebar/Sidebar";
 import { Col, Container, Row } from 'react-bootstrap';
+import NavbarAdmin from '../../../components/NavbarAdmin/NavbarAdmin';
 
 export default function AddUser() {
   return (
     <div>
+      <NavbarAdmin></NavbarAdmin>
       <br></br>
       <br></br>
       <br></br>

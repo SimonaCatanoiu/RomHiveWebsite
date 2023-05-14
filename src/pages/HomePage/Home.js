@@ -1,6 +1,7 @@
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import "./Home.css"
+import Navbar from "../../components/Navbar/Navbar.js";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import ServiceList from "./Services/ServiceList";
 import Footer from "../../components/Footer/Footer.js"
@@ -9,6 +10,7 @@ import Gallery from "../../components/Image-gallery/Gallery";
 const Home = () => 
 {
   return <>
+    <Navbar></Navbar>
     <br/>
     <br/>
     <br/>

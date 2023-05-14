@@ -8,10 +8,12 @@ import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import { Link } from 'react-router-dom';
+import NavbarAdmin from '../../../components/NavbarAdmin/NavbarAdmin';
 
 export default function NewUser() {
   return (
     <div>
+    <NavbarAdmin></NavbarAdmin>
     <br></br>
     <br></br>
     <br></br>

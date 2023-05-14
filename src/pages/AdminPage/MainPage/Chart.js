@@ -1,10 +1,27 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import "./Chart.css"
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, XAxis, YAxis } from 'recharts';
 import { Tooltip } from 'react-bootstrap';
+import {BASE_URL} from '../../../utils/config.js'
 
-export default function Chart({title,data,dataKey,grid}) {
-  
+export default function Chart({title,grid}) {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch(`${BASE_URL}/statistics/logs`,{ credentials: "include"});
+        const data = await res.json();
+        setData(data);
+        console.log(data)
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
 
     <div className='chart'>
@@ -15,7 +32,7 @@ export default function Chart({title,data,dataKey,grid}) {
           <LineChart data={data}>
             <XAxis dataKey="month" stroke="#d2386c"/>
             <YAxis/>
-            <Line type="monotone" dataKey={dataKey} stroke="#d2386c"/>
+            <Line type="monotone" dataKey="userno" stroke="#d2386c"/>
             <Tooltip/>
             {grid && <CartesianGrid stroke="#e0dfdf" strokeDasharray="5 5"/>}
           </LineChart>

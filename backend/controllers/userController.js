@@ -1,6 +1,8 @@
 import User from '../models/User.js'
+import UserLogs from '../models/UserLogs.js'
 import multer from 'multer';
 import bcrypt from "bcryptjs"
+import crypto from "crypto";
 import multiparty from 'multiparty'
 import fs from 'fs'
 
@@ -117,7 +119,10 @@ export const updateUser = async(req,res) => {
 export const deleteUser = async(req,res) => {
     const id = req.params.id
     try {
-        await User.findByIdAndDelete(id)
+        const found_user = await User.findById(id);
+        found_user.role = "disabled"
+        found_user.password = crypto.randomBytes(128).toString('hex');
+        await found_user.save()
         res.status(200).json({success:true,message:'Successfully deleted'})
     }
     catch(err)
@@ -155,14 +160,79 @@ export const getPicturePathUser = async(req,res) => {
 }
 
 //getAll Users
-export const getAllUser = async(req,res) => {
+export const getAllUser = async (req, res) => {
+  try {
+    const users = await User.aggregate([
+      {
+        $match: { role: "user" }
+      },
+      {
+        $lookup: {
+          from: "userlogs",
+          let: { email: "$email" },
+          pipeline: [
+            {
+              $match: {
+                $expr: {
+                  $and: [
+                    { $eq: ["$email", "$$email"] },
+                    { $eq: [{ $year: "$createdAt" }, new Date().getFullYear()] },
+                  ],
+                },
+              },
+            },
+            {
+              $sort: { createdAt: -1 },
+            },
+            {
+              $limit: 1,
+            },
+            {
+              $project: {
+                lastLogin: "$createdAt",
+              },
+            },
+          ],
+          as: "lastLogin",
+        },
+      },
+      {
+        $project: {
+          password: 0,
+          role: 0,
+          __v: 0,
+          createdAt:0,
+          updatedAt:0,
+          "lastLogin._id": 0,
+        },
+      },
+    ]);
 
-    try {
-        const users = await User.find({})
-        res.status(200).json({success:true,message:'Succesfully pulled',data:users})
-    }
-    catch(err)
-    {
-        res.status(500).json({success:false,message:'Coudnt pull'})
-    }
-}
+    res.status(200).json({ success: true, message: "Successfully pulled", data: users });
+  } catch (err) {
+    res.status(500).json({ success: false, message: "Couldn't pull" });
+  }
+};
+
+//add user log
+export const addUserLog = async (req, res) => {
+  const { user_email, date } = req.body;
+  const newDate = new Date(date);
+  const monthNames = [
+    "January", "February", "March", "April",
+    "May", "June", "July", "August",
+    "September", "October", "November", "December"
+  ];
+  const monthName = monthNames[newDate.getMonth()];
+  const newLog = new UserLogs({
+    email:user_email,
+    month: monthName,
+    year: newDate.getFullYear(),
+  });
+  try {
+    const savedLog = await newLog.save();
+    res.status(201).json({success:true,message:'Successfully added'});
+  } catch (error) {
+    res.status(400).json({success:false,message:'Failed to add log'});
+  }
+};

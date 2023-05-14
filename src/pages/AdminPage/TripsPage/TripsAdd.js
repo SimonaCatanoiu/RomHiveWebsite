@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import "../Admin.css"
 import "./TripsEdit.css"
 import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
+import NavbarAdmin from '../../../components/NavbarAdmin/NavbarAdmin';
 
 export default function TripsEdit() {
 
@@ -24,6 +25,7 @@ export default function TripsEdit() {
 
   return (
     <div>
+    <NavbarAdmin></NavbarAdmin>
     <br></br>
     <br></br>
     <br></br>

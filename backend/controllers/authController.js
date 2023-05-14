@@ -65,7 +65,6 @@ export const login = async(req,res) =>
                 expiresIn: "15d"
             }
         )
-
         // set token in the browser cookies and send the response
         // to the client 
         res.cookie('accessToken',token,
@@ -74,7 +73,7 @@ export const login = async(req,res) =>
             expires:token.expiresIn
         }).status(200).json({
             token,
-            data:{...rest},
+            data:{role,...rest},
             role
         })
     }
@@ -99,6 +98,9 @@ export const changePassword = async(req,res) =>
         if (!user) {
             return res.status(404).json({ success: false, message: "Email not found in database!" });
           }
+        if (user.role==="disabled") {
+        return res.status(404).json({ success: false, message: "Email not found in database!" });
+        }
 
         user.password=hash;
 
