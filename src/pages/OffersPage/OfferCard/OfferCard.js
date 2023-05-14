@@ -1,13 +1,31 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import Card from 'react-bootstrap/Card';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import StarIcon from '@mui/icons-material/Star';
 import { Link } from 'react-router-dom';
 import './OfferCard.css'
 
+import {BASE_URL} from '../../../utils/config.js'
+
 const OfferCard = ({offer}) => {
 
     const {_id,title,city,photo,price,featured,reviews}=offer
+    const [filePath, setFilePath] = useState(`${photo}`);
+    const [filePathShow, setFileLink] = useState("");
+    useEffect(() => {
+        async function fetchImage() {
+            try {
+            const imagename = filePath.split('/').pop();
+            const response = await fetch(`${BASE_URL}/images/imgAdm/${imagename}`);
+            const data = await response.blob();
+            const imageUrl = URL.createObjectURL(data);
+            setFileLink(imageUrl);
+            } catch (error) {
+              console.error(error);
+            }
+        }
+        fetchImage();
+      }, [filePath]);
 
     const totalRating = reviews?.reduce((acc,item)=>
     acc+item.rating,0)
@@ -21,7 +39,7 @@ const OfferCard = ({offer}) => {
         <div className="offer__card">
             <Card>
                 <div className='offer__img'>
-                    <img src={photo} alt="tour-img"/>
+                    <img src={filePathShow} alt="tour-img"/>
                     {featured && <span>Featured</span>}
                 </div>
                 <Card.Body>

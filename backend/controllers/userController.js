@@ -65,6 +65,7 @@ export const updateUser = async(req,res) => {
       }
 
       if (password&& new_password && passwordString == passwordString) {
+        console.log(passwordString);
         const salt = bcrypt.genSaltSync(10)
         const hash = bcrypt.hashSync(passwordString,salt)
         user.password = hash;
@@ -136,6 +137,21 @@ export const getSingleUser = async(req,res) => {
     {
         res.status(500).json({success:false,message:'Not found'})
     }
+}
+//getPicturePath
+export const getPicturePathUser = async(req,res) => {
+  const id = req.params.id
+  try {
+      const path = await User.findById(id).select("photo"); 
+      if(path.photo)
+        res.status(200).json({success:true,message:'Item found',data:path})
+      else
+        res.status(200).json({success:false,message:'Image not found'})
+  }
+  catch(err)
+  {
+      res.status(500).json({success:false,message:'User not found'})
+  }
 }
 
 //getAll Users

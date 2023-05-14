@@ -73,6 +73,32 @@ const OfferDetails = () => {
         getUserPicture(offer).then((data) => setUsers(data));
       }, [offer]);
 
+      const [filePath,setFilePath] = useState("");
+      useEffect(() => {
+        if (offer && offer.data.photo) {
+            setFilePath(offer.data.photo);
+        }
+        }, [offer]);
+
+      const [filePathShow, setFileLink] = useState("");
+        useEffect(() => {
+            async function fetchImage() {
+                try {
+                const imagename = filePath.split('/').pop();
+                if (imagename !== '') {
+                    const response = await fetch(`${BASE_URL}/images/imgAdm/${imagename}`);
+                    const data = await response.blob();
+                    const imageUrl = URL.createObjectURL(data);
+                    setFileLink(imageUrl);
+                  }
+                } catch (error) {
+                console.error(error);
+                }
+            }
+            fetchImage();
+        }, [filePath]);
+
+
     if(errorFetch)
     { 
         return <div><br/><br/><br/><br/><p>Server Error</p></div>
@@ -82,6 +108,7 @@ const OfferDetails = () => {
     }
 
     const { photo, title, desc, price, reviews, city, distance, maxGroupSize, address } = offer.data
+      
     const totalRating = reviews?.reduce((acc, item) =>
         acc + item.rating, 0)
     const avgRating = totalRating === 0
@@ -152,7 +179,7 @@ const OfferDetails = () => {
                 <Row>
                     <Col lg='8'>
                         <div className="offer__content">
-                            <img src={photo} alt="" />
+                            <img src={filePathShow} alt="" />
                             <div className=" offer__info">
                                 <h2>{title}</h2>
                                 <div className="d-flex align-items-center gap-5">
@@ -217,7 +244,6 @@ const OfferDetails = () => {
                                         reviews?.map(review => {   
                                             const data = Object.values(users).find(user => user.reviewId === review._id);                                   
                                             const profilePicturePath = data ? data.profilePicturePath : "/images/avatar.jpg";
-                                            console.log(profilePicturePath)
                                             return (
                                                 <div className="review__item">
                                                 <img src={profilePicturePath} alt="NotFound" onError={() => console.log("Error loading image")} />

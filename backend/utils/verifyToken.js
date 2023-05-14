@@ -34,6 +34,20 @@ export const verifyUser = (req,res,next)=>
       });
 };
 
+export const verifyUser2 = (req,res,next)=>
+{
+    verifyToken(req, res, () => {
+        if (req.user.role === "user" || req.user.role === "admin") {
+          next();
+        } else {
+          return res.status(401).json({
+            success: false,
+            message: "You're not authorized"
+          });
+        }
+      });
+};
+
 export const verifyAdmin = (req,res,next)=>
 {
     verifyToken(req,res,next,()=>{

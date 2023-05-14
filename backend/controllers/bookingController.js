@@ -7,7 +7,6 @@ export const createBooking = async(req,res)=>{
     //first we get the correspondent offer and decrease the noPackets
     const Offer = mongoose.model("Offer");
     const offer = await Offer.findById(req.body.offerId);
-    console.log(offer.maxGroupSize)
     try{
         if (offer) {
         if (offer.noPackets > 0) {
@@ -56,6 +55,25 @@ export const getBooking = async(req,res)=> {
     {
         res.status(404).json({success:false,message:'Not Found'}) 
     }
+}
+
+
+export const getUserBookings = async(req,res)=> {
+    const userId = req.params.id
+    try {
+        const bookings = await Booking.find({userId})
+        res.status(200).json({
+          success: true,
+          message: 'Successfully retrieved user bookings',
+          data: bookings
+        })
+      } catch (error) {
+        res.status(500).json({
+          success: false,
+          message: 'Unable to retrieve user bookings',
+          data: error
+        })
+      }
 }
 
 //get all bookings
