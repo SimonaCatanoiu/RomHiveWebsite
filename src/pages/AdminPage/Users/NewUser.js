@@ -1,4 +1,5 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
+import { useParams } from "react-router-dom";
 import "./NewUser.css"
 import "../Admin.css"
 import Sidebar from "../../../components/Sidebar/Sidebar";
@@ -7,10 +8,92 @@ import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
-import { Link } from 'react-router-dom';
 import NavbarAdmin from '../../../components/NavbarAdmin/NavbarAdmin';
+import {BASE_URL} from '../../../utils/config.js'
 
 export default function NewUser() {
+  
+  const { id } = useParams();
+  const user_id = id;
+  const [userData,setUserdata]=useState(null)
+  const [errorFetch,setError]=useState(null)
+
+  useEffect(() => {
+      fetch(`${BASE_URL}/users/getuser/${user_id}`, { credentials: 'include' })
+        .then(response => response.json())
+        .then(userData => {
+          setUserdata(userData);
+        })
+        .catch(error => {
+          console.error(error);
+          setError(error);
+        });
+  }, [user_id]);
+
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [firstname, setFirstName] = useState('');
+  const [lastname, setLastName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [birthdate, setBirthdate] = useState('');
+  const [password, setPassword] = useState('');
+  const [new_password, setNew_Password] = useState('');
+
+  useEffect(() => {
+    if (userData?.data?.username) {
+      setUsername(userData.data.username);
+    }
+    if (userData?.data?.email) {
+      setEmail(userData.data.email);
+    }
+    if (userData?.data?.firstname) {
+      setFirstName(userData.data.firstname);
+    }
+    if (userData?.data?.lastname) {
+      setLastName(userData.data.lastname);
+    }
+    if (userData?.data?.phone) {
+      setPhone(userData.data.phone);
+    }
+    if (userData?.data?.date_of_birth) {
+      const date = new Date(userData.data.date_of_birth);
+      const formattedDate = date.toISOString().split('T')[0]; // "2023-05-10"
+      setBirthdate(formattedDate);
+    }
+  }, [userData]);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const formData = new FormData();
+    formData.append('username', username);
+    formData.append('email', email);
+    formData.append('firstname', firstname);
+    formData.append('lastname', lastname);
+    formData.append('phone', phone);
+    formData.append('password', password);
+    formData.append('new_password', new_password);
+    console.log([...formData.entries()]);
+    try {
+        const response = await fetch(`${BASE_URL}/users/updateUserAdmin/${user_id}`, {
+          method: 'POST',
+          body: formData,
+          credentials: 'include',
+        });
+        const data = await response.json();
+        if(data.success===false)
+          alert("Passwords don't match! Not updated.")
+        window.history.replaceState(null, null, window.location.href);
+        window.location.reload();
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    
+    if (errorFetch) {
+      return <div><br/><br/><br/><br/><p>Error: {errorFetch.message}</p></div>;
+}
+
   return (
     <div>
     <NavbarAdmin></NavbarAdmin>
@@ -27,9 +110,6 @@ export default function NewUser() {
                 <h1 className='userTitle'>Edit User</h1>
               </Col>
               <Col lg='2' className='d-flex justify-content-end'>
-                <Link style={{textDecoration: 'none'}} to="/adminPage/AddUser">
-                  <button className="userAddButton">Create</button>
-                </Link>
               </Col>
             </Row>
           </Container>
@@ -43,7 +123,7 @@ export default function NewUser() {
               <img src="../../../images/avatar.jpg" alt="NotFound" className="userShowImg"/>
               <div className="userShowTopTitle">
                 <span className="userShowUsername">
-                  Anna Becker
+                  {firstname} {lastname}
                 </span>
                 <span className="userShowUserTitle">
                   Regular User
@@ -55,24 +135,24 @@ export default function NewUser() {
               
               <div className="userShowInfo">
                 <PermIdentityIcon className="userShowIcon"/>
-                <span className="userShowInfoTitle">annabeck99</span>
+                <span className="userShowInfoTitle">{username}</span>
               </div>
 
               <div className="userShowInfo">
                 <CalendarTodayIcon className="userShowIcon"/>
-                <span className="userShowInfoTitle">10.12.1999</span>
+                <span className="userShowInfoTitle">{birthdate}</span>
               </div>
 
               <span className="userShowTitle">Contact Details</span>
 
               <div className="userShowInfo">
                 <PhoneAndroidIcon className="userShowIcon"/>
-                <span className="userShowInfoTitle">+40770688389</span>
+                <span className="userShowInfoTitle">{phone}</span>
               </div>
 
               <div className="userShowInfo">
                 <MailOutlineIcon className="userShowIcon"/>
-                <span className="userShowInfoTitle">annabeck99@gmail.com</span>
+                <span className="userShowInfoTitle">{email}</span>
               </div>
 
             </div>
@@ -86,27 +166,27 @@ export default function NewUser() {
                 
                 <div className="userUpdateItem">
                   <label>Username</label>
-                  <input type="text" placeholder="annabeck99" className="userUpdateInput"></input>
+                  <input type="text" value={username} onChange={event => setUsername(event.target.value)} className="userUpdateInput"></input>
                 </div>
 
                 <div className="userUpdateItem">
                   <label>First Name</label>
-                  <input type="text" placeholder="Anna" className="userUpdateInput"></input>
+                  <input type="text" value={firstname} onChange={event => setFirstName(event.target.value)} className="userUpdateInput"></input>
                 </div>
 
                 <div className="userUpdateItem">
                   <label>Last Name</label>
-                  <input type="text" placeholder="Becker" className="userUpdateInput"></input>
+                  <input type="text" value={lastname} onChange={event => setLastName(event.target.value)} className="userUpdateInput"></input>
                 </div>
 
                 <div className="userUpdateItem">
                   <label>Email</label>
-                  <input type="text" placeholder="annabeck99@gmail.com" className="userUpdateInput"></input>
+                  <input type="text" value={email} onChange={event => setEmail(event.target.value)} className="userUpdateInput"></input>
                 </div>
 
                 <div className="userUpdateItem">
                   <label>Phone</label>
-                  <input type="text" placeholder="+40770688389" className="userUpdateInput"></input>
+                  <input type="text" value={phone} onChange={event => setPhone(event.target.value)} className="userUpdateInput"></input>
                 </div>
 
               </div>
@@ -116,16 +196,16 @@ export default function NewUser() {
 
                   <div className="userUpdateItem">
                     <label>New Password</label>
-                    <input type="password" placeholder="Enter Password" className="userUpdateInput"></input>
+                    <input type="password" value={password} onChange={event => setPassword(event.target.value)} className="userUpdateInput"></input>
                   </div>
 
                   <div className="userUpdateItem">
                     <label>Repeat Password</label>
-                    <input type="password" placeholder="Cofirm Password" className="userUpdateInput"></input>
+                    <input type="password" value={new_password} onChange={event => setNew_Password(event.target.value)} className="userUpdateInput"></input>
                   </div>
                 </div>
 
-                <button className="userUpdateButton">Update</button>
+                <button className="userUpdateButton" onClick={handleSubmit}>Update</button>
               </div>
             </form>
           </div>

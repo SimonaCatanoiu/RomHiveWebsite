@@ -13,7 +13,6 @@ export default function Chart({title,grid}) {
         const res = await fetch(`${BASE_URL}/statistics/logs`,{ credentials: "include"});
         const data = await res.json();
         setData(data);
-        console.log(data)
       } catch (error) {
         console.error(error);
       }
