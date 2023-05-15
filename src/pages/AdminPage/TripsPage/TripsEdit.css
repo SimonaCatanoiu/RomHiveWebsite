@@ -114,3 +114,52 @@
     justify-content: space-between;
 }
 
+
+
+
+.ReviewSectionLabel {
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .ReviewContainer {
+    background-color: rgb(255, 255, 215);
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 20px;
+    color:#d2386c;;
+    font-weight: 300;
+  }
+
+  .ReviewId {
+    font-weight: bold;
+    margin-bottom: 4px;
+  }
+  
+  .ReviewUsername {
+    margin-bottom: 4px;
+  }
+  
+  .ReviewText {
+    margin-bottom: 4px;
+  }
+  
+  .DeleteReviewButton {
+    background-color: #d2386c;
+    color: rgb(255,255,240);
+    border: 2px solid #d2386c;
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+    display:block;
+    font-weight: 600;
+  }
+  
+  .DeleteReviewButton:hover {
+    background-color: rgb(255,255,240);
+    color: #d2386c;
+  }

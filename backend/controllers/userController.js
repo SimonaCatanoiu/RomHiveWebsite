@@ -115,6 +115,77 @@ export const updateUser = async(req,res) => {
 
 }
 
+
+
+//update User from Admin
+export const updateUser2 = async(req,res) => {
+  const id = req.params.id
+
+  let form = new multiparty.Form();
+  const { fields }  = await new Promise((resolve, reject) => {
+      form.parse(req, (err, fields) => {
+        if (err) {
+          return reject(err);
+        }
+        resolve({fields});
+      });
+    });
+  
+  const {username,email,firstname,lastname,phone,password,new_password} = fields;
+  const passwordString = password.toString();
+  const new_passwordString = new_password.toString();
+  const usernameString = username.toString();
+  const emailString = email.toString(); 
+  const phoneString = phone.toString();
+  const firstnameString = firstname.toString(); 
+  const lastnameString = lastname.toString();
+  try {
+    let user = await User.findById(id);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    //check if password matches
+    if (password && new_password && passwordString !== new_passwordString) {
+      return res.status(200).json({ success:false,message: 'Password dont match. Password not updated'});
+    }
+
+    if (password&& new_password && passwordString == passwordString) {
+      const salt = bcrypt.genSaltSync(10)
+      const hash = bcrypt.hashSync(passwordString,salt)
+      user.password = hash;
+    }
+
+    if (username) {
+      user.username = usernameString;
+    }
+
+    if (email) {
+      user.email = emailString;
+    }
+    if (firstname) {
+      user.firstname = firstnameString;
+    }
+    if (lastname) {
+      user.lastname = lastnameString;
+    }
+    if (phone) {
+      user.phone = phoneString;
+    }
+    
+    await user.save();
+    res.status(200).json({ message: 'User updated successfully', user});
+  }
+  catch(err)
+  {
+      console.log(err)
+      res.status(500).json({ message: 'Internal server error' });
+  }
+
+}
+
+
+
 //delete User
 export const deleteUser = async(req,res) => {
     const id = req.params.id

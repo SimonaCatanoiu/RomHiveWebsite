@@ -1,31 +1,71 @@
-import React, {useState} from 'react'
+import React, {useState,useEffect,useContext} from 'react'
 import "../Admin.css"
 import "./TripsPage.css"
 import Sidebar from "../../../components/Sidebar/Sidebar.js";
 import { DataGrid } from '@mui/x-data-grid';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import {Tripsrows} from './TripsData'
 import { Link } from 'react-router-dom';
 import NavbarAdmin from '../../../components/NavbarAdmin/NavbarAdmin';
+import {BASE_URL} from '../../../utils/config.js'
+import {AuthContext} from '../../../context/AuthContext.js'
 
 
 export default function TripsPage() {
 
-  const [Tripdata,setTripsrows] = useState(Tripsrows)
+  const [Tripdata,setTripsrows] = useState([])
+  const {user} = useContext(AuthContext)
+  //fetch data from database
+  useEffect(() => {
+    const fetchTripsrows = async () => {
+      if(user && user.role === 'admin')
+      {
+      try {
+          const response = await fetch(`${BASE_URL}/offers/adminOffers`);
+          const data = await response.json();
+          console.log(data)
+          //fetch the images
+          const tripsWithImages = await Promise.all(
+            data.Tripsrows.map(async (trip) => {
+               const imagename = trip.picture.split('/').pop();
+              const imageResponse = await fetch(`${BASE_URL}/images/imgAdm/${imagename}`);
+              const imageBlob = await imageResponse.blob();
+              const objectURL = URL.createObjectURL(imageBlob);
+              return { ...trip, objectURL };
+            })
+          );
+          setTripsrows(tripsWithImages);
+        }
+        catch (error) {
+          console.error('Error fetching Tripsrows:', error);
+        }
+      } 
+    };
+    fetchTripsrows();
+  }, []);
 
-  const handleDelete = (id) => {
-    const index = Tripdata.findIndex((row) => row.id === id);
-    console.log(index);
-    if (index !== -1) {
-    const newRows = [...Tripdata];
-    newRows.splice(index, 1);
-    console.log(newRows);
-    setTripsrows(newRows);
+
+  const handleDelete = async (id) => {
+    if (window.confirm("Are you sure you want to delete this offer?")) {
+      try {
+        const response = await fetch(`${BASE_URL}/offers/${id}`, {
+          method: 'DELETE',
+          credentials: 'include',
+        });
+        if (response.ok) {
+          const updatedRows = Tripdata.filter((row) => row.id !== id);
+          setTripsrows(updatedRows);
+        } else {
+          const data = await response.json();
+          console.error(data.message);
+        }
+      } catch (error) {
+        console.error(error);
+      }
     }
-  }
+  };
 
   const Tripscolumns = [
-    { field: 'id', headerName: 'ID', align: 'center',width: 90, headerAlign: 'center'},
+    { field: 'id', headerName: 'ID', align: 'center',width: 200, headerAlign: 'center'},
     {
       field: 'name',
       headerName: 'Name',
@@ -33,7 +73,7 @@ export default function TripsPage() {
       renderCell: (params) => {
         return (
           <div className="TripList">
-            <img className="TripListImg" src={params.row.picture} alt=""/>{params.row.name}
+            <img className="TripListImg" src={params.row.objectURL} alt=""/>{params.row.name}
           </div>
         )
       },
@@ -106,6 +146,7 @@ export default function TripsPage() {
     <div className="container_admin">
       <Sidebar/>
       <div className='tripPage'>
+      {user && user.role === 'admin' ? (
         <DataGrid
           rows={Tripdata}
           columns={Tripscolumns}
@@ -121,7 +162,9 @@ export default function TripsPage() {
           pageSizeOptions={[4]}
           disableRowSelectionOnClick
           rowHeight={130}
-        />
+        />):
+        (<h4 style={{ textAlign: 'left' }}>Access denied. You are not authorized to view this page.</h4>)
+        }
       </div>
     </div>
   </div>

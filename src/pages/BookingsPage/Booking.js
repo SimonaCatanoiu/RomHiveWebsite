@@ -3,6 +3,7 @@ import "./Booking.css"
 import {AuthContext} from '../../context/AuthContext.js'
 import {BASE_URL} from "../../utils/config.js"
 import { DataGrid } from '@mui/x-data-grid';
+import { Link } from 'react-router-dom';
 
 
 export default function Booking() {
@@ -32,8 +33,8 @@ export default function Booking() {
     const status = bookingDate.getTime() >= currentDate.getTime() ? "Incoming" : "Passed";
     return {
       id: booking._id,
-      offerId: booking.offerId,
       offerName: booking.offerName,
+      offerId: booking.offerId,
       fullName: booking.fullName,
       phone: booking.phone,
       guestSize: booking.guestSize,
@@ -44,12 +45,21 @@ export default function Booking() {
   });
 
   const columns = [
-    { field: 'offerId', headerName: 'ID', align: 'center',width: 250,editable: false, headerAlign: 'center'},
+    { field: 'id', headerName: 'ID', align: 'center',width: 250,editable: false, headerAlign: 'center'},
     {
       field: 'offerName',
       headerName: 'Offer Name',
       width: 300,
       editable: false,
+      renderCell: (params) => {
+        return (
+          <div>
+            <Link to={`/offers/${params.row.offerId}`} style={{ color: 'black' }}>
+            {params.row.offerName}
+            </Link>
+          </div>
+        )
+      },
       align: 'center',
       headerAlign: 'center'
     },

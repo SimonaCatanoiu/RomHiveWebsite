@@ -1,13 +1,17 @@
 import express from 'express'
-import {createOffer,deleteOffer,getAllOffer,getFeaturedOffer,getOfferBySearch,getOfferCount,getSingleOffer,updateOffer} from '../controllers/offerController.js';
+import {createOffer,deleteOffer,getAllOffer,getAllOfferDetails,deleteReview,getFeaturedOffer,getOfferBySearch,getOfferCount,getSingleOffer,updateOffer} from '../controllers/offerController.js';
 import { verifyAdmin } from '../utils/verifyToken.js';
 
 const router = express.Router()
 
+//get offers for admin
+router.get('/adminOffers',getAllOfferDetails);
+//delete review from offer
+router.post('/adminDeleteReview',verifyAdmin,deleteReview)
 //create new offer
 router.post('/',verifyAdmin,createOffer)
 //update new offer
-router.put('/:id',verifyAdmin,updateOffer)
+router.post('/updateOffer/:id',verifyAdmin,updateOffer)
 //delete offer
 router.delete('/:id',verifyAdmin,deleteOffer)
 //get single offer
